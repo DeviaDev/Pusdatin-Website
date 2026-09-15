@@ -1,0 +1,19 @@
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::create('ticket_status_histories', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('ticket_id')->constrained()->cascadeOnDelete();
+            $table->enum('status', ['pending', 'diproses', 'izin_eselon', 'ditolak', 'selesai']);
+            $table->text('catatan')->nullable();
+            $table->foreignId('changed_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamps();
+        });
+    }
+    public function down(): void { Schema::dropIfExists('ticket_status_histories'); }
+};
