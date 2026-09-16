@@ -1,10 +1,10 @@
-@extends('layouts.portal')
+@extends('layouts.admin')
 @section('title', 'Admin — Tiket')
 @section('page-title', 'Panel Admin — Layanan Pengaduan')
 @section('content')
     <div class="ringkasan">
         @foreach ($counts as $key => $count)
-            <a href="{{ route('admin.dashboard', ['status' => $key]) }}" style="text-decoration:none;color:inherit;">
+            <a href="{{ route('admin.tiket.index', ['status' => $key]) }}" style="text-decoration:none;color:inherit;">
                 <div class="kartu" style="{{ $status === $key ? 'border-color:var(--merah); border-width:2px;' : '' }}">
                     <b style="color:{{ ['pending' => '#8a6d00', 'diproses' => '#1c4e9c', 'izin_eselon' => '#5a3b9e', 'ditolak' => '#9c1c28', 'selesai' => '#146c43'][$key] }};">{{ $count }}</b>
                     {{ App\Models\Ticket::STATUS[$key] }}

@@ -1,4 +1,4 @@
-@extends('layouts.portal')
+@extends('layouts.admin')
 @section('title', 'Admin — Tiket ' . $tiket->kode)
 @section('page-title', 'Admin — Detail Tiket ' . $tiket->kode)
 @section('content')

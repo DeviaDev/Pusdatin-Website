@@ -1,4 +1,4 @@
-@extends('layouts.portal')
+@extends('layouts.admin')
 @section('title', 'Admin — Pengumuman')
 @section('page-title', 'Kelola Pengumuman')
 @section('content')
