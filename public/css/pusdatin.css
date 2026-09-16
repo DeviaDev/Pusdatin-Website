@@ -138,3 +138,33 @@ form.stack input:focus, form.stack select:focus, form.stack textarea:focus { bor
     .sidebar { display: none; }
     .hero h1 { font-size: 1.6rem; }
 }
+
+
+/* .search-form {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 12px;
+    border-bottom: 1px solid #aaa;
+}
+
+.search-form input {
+    width: 130px;
+    border: none;
+    outline: none;
+    padding: 6px 4px;
+    background: transparent;
+    font-size: 12px;
+}
+
+.search-form input::placeholder {
+    color: #888;
+}
+
+.search-form button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 13px;
+} */

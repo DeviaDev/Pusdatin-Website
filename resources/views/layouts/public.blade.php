@@ -24,6 +24,21 @@
             <a href="{{ route('informasi') }}" class="{{ request()->routeIs('informasi*') ? 'aktif' : '' }}">Informasi</a>
             <a href="{{ route('sop') }}" class="{{ request()->routeIs('sop') ? 'aktif' : '' }}">SOP Pusdatin</a>
         </nav>
+
+        {{-- SEARCH
+    <form action="{{ route('search') }}" method="GET" class="search-form">
+        <input 
+            type="text" 
+            name="q" 
+            placeholder="Cari informasi..."
+            value="{{ request('q') }}"
+        >
+
+        <button type="submit" aria-label="Cari">
+            🔍
+        </button>
+    </form> --}}
+    
         @auth
             <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('portal.dashboard') }}" class="btn-merah">Portal Saya</a>
         @else

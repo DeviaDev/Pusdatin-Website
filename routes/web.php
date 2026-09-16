@@ -20,6 +20,7 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Route::get('/search', function () {return 'Search berhasil!';})->name('search');
 // ===================== PORTAL PEGAWAI =====================
 Route::middleware(['auth'])->prefix('portal')->name('portal.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
