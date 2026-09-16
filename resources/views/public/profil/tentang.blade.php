@@ -25,21 +25,15 @@
             <span class="sub-judul-merah">SEKILAS PUSDATIN</span>
             <h2>Pusat Data dan Informasi Badan Nasional Penanggulangan Terorisme</h2>
 
-            <p>Pusat Data dan Informasi (Pusdatin) Badan Nasional Penanggulangan Terorisme (BNPT) adalah satuan kerja yang bertugas mengelola, mengintegrasikan, dan mendiseminasikan data serta informasi strategis dalam rangka penanggulangan terorisme di Indonesia.</p>
-
-            <p>Dibentuk berdasarkan Peraturan Presiden Nomor 46 Tahun 2010 tentang Badan Nasional Penanggulangan Terorisme dan diperkuat melalui Peraturan Kepala BNPT, Pusdatin hadir sebagai tulang punggung sistem informasi BNPT yang andal, aman, dan terintegrasi.</p>
-
-            <p>Pusdatin bertanggung jawab kepada Kepala BNPT dan berkoordinasi dengan kementerian/lembaga terkait dalam pengelolaan data dan informasi penanggulangan terorisme secara nasional.</p>
-
-            <p>Dalam era transformasi digital, Pusdatin terus mengembangkan kapasitas teknologi informasinya untuk mendukung kebijakan berbasis data (<em>data-driven policy</em>) yang cepat, tepat, dan akuntabel.</p>
+            {!! nl2br(e(content('profil.tentang', "Pusat Data dan Informasi (Pusdatin) Badan Nasional Penanggulangan Terorisme (BNPT) adalah satuan kerja yang bertugas mengelola, mengintegrasikan, dan mendiseminasikan data serta informasi strategis dalam rangka penanggulangan terorisme di Indonesia.\n\nDibentuk berdasarkan Peraturan Presiden Nomor 46 Tahun 2010 tentang Badan Nasional Penanggulangan Terorisme dan diperkuat melalui Peraturan Kepala BNPT, Pusdatin hadir sebagai tulang punggung sistem informasi BNPT yang andal, aman, dan terintegrasi.\n\nPusdatin bertanggung jawab kepada Kepala BNPT dan berkoordinasi dengan kementerian/lembaga terkait dalam pengelolaan data dan informasi penanggulangan terorisme secara nasional.\n\nDalam era transformasi digital, Pusdatin terus mengembangkan kapasitas teknologi informasinya untuk mendukung kebijakan berbasis data (data-driven policy) yang cepat, tepat, dan akuntabel."))) !!}
 
             <div class="stats-profil-grid">
                 <div class="kartu-stat-profil">
-                    <b>2010</b>
+                    <b>{{ content('profil.tahun_berdiri', '2010') }}</b>
                     <small>Tahun Berdiri</small>
                 </div>
                 <div class="kartu-stat-profil">
-                    <b>87 Orang</b>
+                    <b>{{ content('profil.total_pegawai', '87 Orang') }}</b>
                     <small>Total Pegawai</small>
                 </div>
             </div>
@@ -47,17 +41,17 @@
 
         <div class="kolom-gambar-profil">
             <div class="bingkai-foto-gedung">
-                <img src="{{ asset('images/gedung-pusdatin.jpg') }}" alt="Gedung Pusdatin BNPT" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'">
+                <img src="{{ content('profil.foto_gedung') ? asset('storage/'.content('profil.foto_gedung')) : asset('images/gedung-pusdatin.jpg') }}" alt="Gedung Pusdatin BNPT" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'">
             </div>
-            
+
             <div class="grid-lokasi-cabang">
                 <div class="keterangan-alamat-profil">
                     <span class="sub-alamat-label">KANTOR PUSAT (JAKARTA)</span>
-                    <p class="alamat-teks">Jl. IR. H. Juanda No. 1, Jakarta Pusat 10120</p>
+                    <p class="alamat-teks">{{ content('profil.alamat_pusat', 'Jl. IR. H. Juanda No. 1, Jakarta Pusat 10120') }}</p>
                 </div>
                 <div class="keterangan-alamat-profil">
                     <span class="sub-alamat-label">KANTOR OPERASIONAL (BOGOR)</span>
-                    <p class="alamat-teks">Kompleks IPSC Sentul, Kab. Bogor 16810</p>
+                    <p class="alamat-teks">{{ content('profil.alamat_bogor', 'Kompleks IPSC Sentul, Kab. Bogor 16810') }}</p>
                 </div>
             </div>
         </div>

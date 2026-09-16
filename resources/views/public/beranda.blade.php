@@ -2,8 +2,8 @@
 @section('title', 'Beranda')
 @section('content')
     <section class="hero">
-        <h1>Pusat Data dan Teknologi Informasi <span>BNPT</span></h1>
-        <p>Mewujudkan tata kelola teknologi informasi yang andal, aman, dan inovatif dalam mendukung operasional penanggulangan terorisme nasional.</p>
+        <h1>{!! nl2br(e(content('beranda.judul', "Pusat Data dan Teknologi Informasi BNPT"))) !!}</h1>
+        <p>{{ content('beranda.subjudul', 'Mendorong efisiensi dan inovasi layanan teknologi informasi untuk mendukung implementasi penanggulangan terorisme yang komprehensif dan terintegrasi.') }}</p>
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
             <a href="{{ route('login') }}" class="btn-merah">Layanan Pengaduan</a>
             <a href="{{ route('sop') }}" class="btn-outline">Telusuri Pusdatin</a>
@@ -115,55 +115,15 @@
     </section>
     @endif
 
-    <!-- Section Mitra Pusdatin -->
-    <section class="konten reveal-on-scroll">
-        <div class="judul-section">
-            <span class="sub-judul">KERJA SAMA</span>
-            <h2>Mitra Pusdatin</h2>
+    <section class="konten" style="text-align:center;">
+        <h2>Mitra Pusdatin</h2>
+        <div style="display:flex; gap:40px; justify-content:center; flex-wrap:wrap; color:#999; font-weight:600;">
+            <span>dgital</span><span>KOMINFO</span><span>JDN</span><span>LAPOR!</span>
         </div>
 
-        <div class="grid-mitra">
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/kominfo.png') }}" alt="Kominfo" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">KOMINFO</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/bssn.png') }}" alt="BSSN" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">BSSN</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/lapor.png') }}" alt="LAPOR!" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">LAPOR!</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/jdn.png') }}" alt="JDN" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">JDN</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/polri.png') }}" alt="POLRI" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">POLRI</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/tni.png') }}" alt="TNI" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">TNI</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/kemendagri.png') }}" alt="KEMENDAGRI" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">KEMENDAGRI</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/kemenkumham.png') }}" alt="KEMENKUMHAM" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">KEMENKUMHAM</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/bkn.png') }}" alt="BKN" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">BKN</span>
-            </div>
-            <div class="kartu-mitra">
-                <img src="{{ asset('images/mitra/bpkp.png') }}" alt="BPKP" onerror="this.remove(); this.nextElementSibling.style.display='block';">
-                <span class="mitra-text-dummy" style="display:none;">BPKP</span>
-            </div>
-        </div>
+        {{-- helper content() lama tetap jalan, cukup pakai key yang sesuai --}}
+        <h3>{{ content('mitra.nama_1') }}</h3>
+        <img src="{{ asset('storage/'.content('mitra.logo_1')) }}" alt="Mitra">
     </section>
 
     <!-- Script Pendeteksi Scroll & Horizontal Scroll Button -->

@@ -9,6 +9,7 @@ return new class extends Migration {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
+            $table->string('foto')->nullable()->after('isi');
             $table->text('isi');
             $table->enum('kategori', ['Pengumuman', 'Informasi', 'Kebijakan'])->default('Pengumuman');
             $table->boolean('is_published')->default(true);
