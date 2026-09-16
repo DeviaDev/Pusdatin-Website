@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Storage;
+
 
 class AnnouncementController extends Controller
 {
@@ -22,12 +24,17 @@ class AnnouncementController extends Controller
     {
         $data = $request->validate([
             'judul' => 'required|string|max:200',
+            'foto' => 'nullable|image|max:2048',
             'isi' => 'required|string',
             'kategori' => 'required|in:Pengumuman,Informasi,Kebijakan',
             'is_published' => 'nullable|boolean',
         ]);
+        if ($request->hasFile('foto')) {
+        $data['foto'] = $request->file('foto')->store('announcement', 'public');
+        }
         $data['is_published'] = $request->boolean('is_published');
-        $data['published_at'] = $data['is_published'] ? now() : null;
+        if ($data['is_published']) $data['published_at'] = now();
+
         Announcement::create($data);
         return redirect()->route('admin.pengumuman.index')->with('success', 'Pengumuman dibuat.');
     }
@@ -41,10 +48,14 @@ class AnnouncementController extends Controller
     {
         $data = $request->validate([
             'judul' => 'required|string|max:200',
+            'foto' => 'nullable|image|max:2048',
             'isi' => 'required|string',
             'kategori' => 'required|in:Pengumuman,Informasi,Kebijakan',
             'is_published' => 'nullable|boolean',
         ]);
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('announcement', 'public');
+        }
         $data['is_published'] = $request->boolean('is_published');
         if ($data['is_published'] && ! $pengumuman->published_at) {
             $data['published_at'] = now();

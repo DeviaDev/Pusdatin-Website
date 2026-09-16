@@ -24,21 +24,6 @@
             <a href="{{ route('informasi') }}" class="{{ request()->routeIs('informasi*') ? 'aktif' : '' }}">Informasi</a>
             <a href="{{ route('sop') }}" class="{{ request()->routeIs('sop') ? 'aktif' : '' }}">SOP Pusdatin</a>
         </nav>
-
-        {{-- SEARCH
-    <form action="{{ route('search') }}" method="GET" class="search-form">
-        <input 
-            type="text" 
-            name="q" 
-            placeholder="Cari informasi..."
-            value="{{ request('q') }}"
-        >
-
-        <button type="submit" aria-label="Cari">
-            🔍
-        </button>
-    </form> --}}
-    
         @auth
             <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('portal.dashboard') }}" class="btn-merah">Portal Saya</a>
         @else
@@ -75,10 +60,10 @@
             </div>
             <div>
                 <h4>Kontak</h4>
-                <p>Jl. H. Juanda No. 1, Jakarta Pusat 10120<br>
-                pusdatin@bnpt.go.id<br>
-                (021) 384-5555 ext. 200</p>
-                <p>Jam Layanan:<br>Senin – Jumat: 08.00 – 16.00 WIB</p>
+                <p>{!! nl2br(e(content('profil.kontak.alamat', 'Jl. H. Juanda No. 1, Jakarta Pusat 10120'))) !!}<br>
+                {{ content('profil.kontak.email', 'pusdatin@bnpt.go.id') }}<br>
+                {{ content('profil.kontak.telepon', '(021) 384-5555 ext. 200') }}</p>
+                <p>Jam Layanan:<br>{{ content('profil.kontak.jam', 'Senin – Jumat: 08.00 – 16.00 WIB') }}</p>
             </div>
         </div>
         <div class="bawah">

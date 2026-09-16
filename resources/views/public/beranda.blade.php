@@ -2,8 +2,8 @@
 @section('title', 'Beranda')
 @section('content')
     <section class="hero">
-        <h1>Pusat Data dan Teknologi Informasi <span>BNPT</span></h1>
-        <p>Mendorong efisiensi dan inovasi layanan teknologi informasi untuk mendukung implementasi penanggulangan terorisme yang komprehensif dan terintegrasi.</p>
+        <h1>{!! nl2br(e(content('beranda.judul', "Pusat Data dan Teknologi Informasi BNPT"))) !!}</h1>
+        <p>{{ content('beranda.subjudul', 'Mendorong efisiensi dan inovasi layanan teknologi informasi untuk mendukung implementasi penanggulangan terorisme yang komprehensif dan terintegrasi.') }}</p>
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
             <a href="{{ route('login') }}" class="btn-merah">Layanan Pengaduan</a>
             <a href="{{ route('sop') }}" class="btn-outline" style="color:#fff;border-color:#fff">Telusuri Pusdatin</a>
@@ -48,9 +48,13 @@
     @endif
 
     <section class="konten" style="text-align:center;">
-        <h2>Mitra Pusdatin</h2>
+        <h2>Mitra    Pusdatin</h2>
         <div style="display:flex; gap:40px; justify-content:center; flex-wrap:wrap; color:#999; font-weight:600;">
             <span>dgital</span><span>KOMINFO</span><span>JDN</span><span>LAPOR!</span>
         </div>
+
+        {{-- helper content() lama tetap jalan, cukup pakai key yang sesuai --}}
+        <h3>{{ content('mitra.nama_1') }}</h3>
+        <img src="{{ asset('storage/'.content('mitra.logo_1')) }}" alt="Mitra">
     </section>
 @endsection
