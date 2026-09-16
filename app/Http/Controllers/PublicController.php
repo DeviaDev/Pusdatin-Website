@@ -7,7 +7,7 @@ class PublicController extends Controller
 {
     public function beranda()
     {
-        $pengumuman = Announcement::published()->take(3)->get();
+        $pengumuman = Announcement::published()->take(6)->get();
         return view('public.beranda', compact('pengumuman'));
     }
 

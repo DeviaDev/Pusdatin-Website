@@ -1,13 +1,66 @@
 @extends('layouts.public')
-@section('title', 'Profil Pusdatin')
+@section('title', 'Tentang Pusdatin')
+
 @section('content')
-<section class="konten">
-    <h2>Profil Pusdatin BNPT</h2>
-    <div class="grid-3">
-        <div class="kartu"><h3>Tugas dan Fungsi</h3><p>Perumusan kebijakan teknis di bidang pusat data, teknologi informasi... <a href="{{ route('profil', 'tugas-fungsi') }}" style="color:var(--merah)">Selengkapnya</a></p></div>
-        <div class="kartu"><h3>Visi dan Misi</h3><p>Mewujudkan pusat data dan teknologi informasi yang andal dan terintegrasi... <a href="{{ route('profil', 'visi-misi') }}" style="color:var(--merah)">Selengkapnya</a></p></div>
-        <div class="kartu"><h3>Struktur Organisasi</h3><p>Susunan organisasi Pusdatin BNPT beserta tupoksi... <a href="{{ route('profil', 'struktur') }}" style="color:var(--merah)">Selengkapnya</a></p></div>
-        <div class="kartu"><h3>Kontak Kami</h3><p>Jl. H. Juanda No. 1, Jakarta Pusat 10120 — (021) 384-5555 ext. 200... <a href="{{ route('profil', 'kontak') }}" style="color:var(--merah)">Selengkapnya</a></p></div>
+<div class="header-profil">
+    <div class="header-profil-body">
+        <span class="sub-judul-profil">TENTANG KAMI</span>
+        <h1>Profile Pusdatin BNPT</h1>
+    </div>
+</div>
+
+<div class="tab-profil-wrapper">
+    <div class="tab-profil-container">
+        <a href="{{ route('profil', 'tentang') }}" class="tab-item {{ request('section', 'tentang') == 'tentang' ? 'aktif' : '' }}">Tentang Pusdatin</a>
+        <a href="{{ route('profil', 'tugas-fungsi') }}" class="tab-item {{ request('section') == 'tugas-fungsi' ? 'aktif' : '' }}">Tugas & Fungsi</a>
+        <a href="{{ route('profil', 'visi-misi') }}" class="tab-item {{ request('section') == 'visi-misi' ? 'aktif' : '' }}">Visi & Misi</a>
+        <a href="{{ route('profil', 'struktur') }}" class="tab-item {{ request('section') == 'struktur' ? 'aktif' : '' }}">Struktur Organisasi</a>
+        <a href="{{ route('profil', 'kontak') }}" class="tab-item {{ request('section') == 'kontak' ? 'aktif' : '' }}">Kontak</a>
+    </div>
+</div>
+
+<section class="konten-profil-wrap reveal-tab">
+    <div class="grid-profil-main">
+        <div class="kolom-teks-profil">
+            <span class="sub-judul-merah">SEKILAS PUSDATIN</span>
+            <h2>Pusat Data dan Informasi Badan Nasional Penanggulangan Terorisme</h2>
+
+            <p>Pusat Data dan Informasi (Pusdatin) Badan Nasional Penanggulangan Terorisme (BNPT) adalah satuan kerja yang bertugas mengelola, mengintegrasikan, dan mendiseminasikan data serta informasi strategis dalam rangka penanggulangan terorisme di Indonesia.</p>
+
+            <p>Dibentuk berdasarkan Peraturan Presiden Nomor 46 Tahun 2010 tentang Badan Nasional Penanggulangan Terorisme dan diperkuat melalui Peraturan Kepala BNPT, Pusdatin hadir sebagai tulang punggung sistem informasi BNPT yang andal, aman, dan terintegrasi.</p>
+
+            <p>Pusdatin bertanggung jawab kepada Kepala BNPT dan berkoordinasi dengan kementerian/lembaga terkait dalam pengelolaan data dan informasi penanggulangan terorisme secara nasional.</p>
+
+            <p>Dalam era transformasi digital, Pusdatin terus mengembangkan kapasitas teknologi informasinya untuk mendukung kebijakan berbasis data (<em>data-driven policy</em>) yang cepat, tepat, dan akuntabel.</p>
+
+            <div class="stats-profil-grid">
+                <div class="kartu-stat-profil">
+                    <b>2010</b>
+                    <small>Tahun Berdiri</small>
+                </div>
+                <div class="kartu-stat-profil">
+                    <b>87 Orang</b>
+                    <small>Total Pegawai</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="kolom-gambar-profil">
+            <div class="bingkai-foto-gedung">
+                <img src="{{ asset('images/gedung-pusdatin.jpg') }}" alt="Gedung Pusdatin BNPT" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            
+            <div class="grid-lokasi-cabang">
+                <div class="keterangan-alamat-profil">
+                    <span class="sub-alamat-label">KANTOR PUSAT (JAKARTA)</span>
+                    <p class="alamat-teks">Jl. IR. H. Juanda No. 1, Jakarta Pusat 10120</p>
+                </div>
+                <div class="keterangan-alamat-profil">
+                    <span class="sub-alamat-label">KANTOR OPERASIONAL (BOGOR)</span>
+                    <p class="alamat-teks">Kompleks IPSC Sentul, Kab. Bogor 16810</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 @endsection
