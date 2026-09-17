@@ -54,22 +54,106 @@ class ContentController extends Controller
         return back()->with('success', 'Field ditambahkan.');
     }
 
+    public function storeMitra(Request $request, ContentGroup $group)
+{
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'logo' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+    ]);
+
+    // Cari nomor Mitra berikutnya
+    $nomor = 1;
+
+    while (
+        $group->fields()->where('key', $group->slug . '.nama_' . $nomor)->exists() ||
+        $group->fields()->where('key', $group->slug . '.logo_' . $nomor)->exists()
+    ) {
+        $nomor++;
+    }
+
+    // Field nama
+    $namaField = $group->fields()->create([
+        'key' => $group->slug . '.nama_' . $nomor,
+        'label' => 'Nama Mitra ' . $nomor,
+        'type' => 'text',
+        'urutan' => $group->fields()->max('urutan') + 1,
+    ]);
+
+    // Field logo
+    $logoField = $group->fields()->create([
+        'key' => $group->slug . '.logo_' . $nomor,
+        'label' => 'Logo Mitra ' . $nomor,
+        'type' => 'image',
+        'urutan' => $group->fields()->max('urutan') + 1,
+    ]);
+
+    // Simpan nama
+    SiteContent::set(
+        $namaField->key,
+        $request->nama
+    );
+
+    // Simpan logo
+    $path = $request->file('logo')->store('konten', 'public');
+
+    SiteContent::set(
+        $logoField->key,
+        $path
+    );
+
+    return back()->with(
+        'success',
+        'Mitra ' . $nomor . ' berhasil ditambahkan.'
+    );
+}
+
     public function update(Request $request, ContentGroup $group)
     {
+        $group->load('fields');
+
         foreach ($group->fields as $field) {
+
+            $fieldName = "fields.{$field->id}";
+
+            // =========================
+            // FIELD GAMBAR
+            // =========================
             if ($field->type === 'image') {
-                if ($request->hasFile("fields.$field->id")) {
+
+                if ($request->hasFile($fieldName)) {
+
+                    $file = $request->file($fieldName);
+
+                    // Hapus gambar lama
                     $old = SiteContent::get($field->key);
-                    if ($old) Storage::disk('public')->delete($old);
-                    $path = $request->file("fields.$field->id")->store('konten', 'public');
+
+                    if ($old && Storage::disk('public')->exists($old)) {
+                        Storage::disk('public')->delete($old);
+                    }
+
+                    // Simpan gambar baru
+                    $path = $file->store('konten', 'public');
+
+                    // Simpan path ke database
                     SiteContent::set($field->key, $path);
                 }
+
+            // =========================
+            // FIELD TEKS / TEXTAREA
+            // =========================
             } else {
-                SiteContent::set($field->key, $request->input("fields.$field->id"));
+
+                SiteContent::set(
+                    $field->key,
+                    $request->input($fieldName)
+                );
             }
         }
 
-        return back()->with('success', 'Konten "' . $group->label . '" berhasil diperbarui.');
+        return back()->with(
+            'success',
+            'Konten "' . $group->label . '" berhasil diperbarui.'
+        );
     }
 
     public function destroyField(ContentGroupField $field)

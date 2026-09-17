@@ -415,6 +415,7 @@ section.konten h2 {
     -webkit-line-clamp: 2; /* Maksimal 2 baris */
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-clamp: 2;
     text-overflow: ellipsis; /* Otomatis memberi '...' di akhir baris ke-2 */
 }
 .glass-footer { display: flex; justify-content: flex-end; }
@@ -1629,3 +1630,327 @@ form.stack textarea:focus {
 .admin-top { background: #fff; padding: 12px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; flex-wrap: wrap; gap: 10px; }
 .admin-body { padding: 28px; }
 @media (max-width: 768px) { .admin-side { display: none; } }
+
+
+/* =========================
+   BERANDA
+   ========================= */
+
+/* =========================
+   MITRA PUSDATIN
+========================= */
+
+.mitra-section {
+    text-align: center;
+}
+
+.mitra-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    align-items: center;
+    justify-items: center;
+    margin-top: 30px;
+}
+
+.mitra-item {
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mitra-logo {
+    width: 100%;
+    max-width: 150px;
+    height: 100px;
+    object-fit: contain;
+    display: block;
+}
+
+.mitra-nama {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .mitra-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* HP */
+@media (max-width: 500px) {
+    .mitra-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .mitra-logo {
+        max-width: 120px;
+        height: 80px;
+    }
+
+    .mitra-nama {
+        font-size: 12px;
+    }
+}
+
+
+
+
+/* =========================
+   INFORMASI
+   ========================= */
+
+/* Layout Grid 3 Kolom */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Membuat 3 kolom sejajar */
+    gap: 20px;                            /* Jarak antar kartu */
+}
+
+/* Tampilan Kartu (Box) */
+.kartu {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kartu:hover {
+    transform: translateY(-4px);
+    border-color: var(--merah);
+    box-shadow: 0 8px 20px rgba(190, 0, 40, 0.15);
+}
+
+/* Area Gambar Thumbnail */
+.berita-thumb {
+    width: 100%;
+    height: 180px;                       /* Wajib diset agar gambar muncul */
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+/* Responsive (Mobile View) */
+@media (max-width: 768px) {
+    .grid-3 {
+        grid-template-columns: 1fr;       /* Menjadi 1 kolom di layar HP */
+    }
+}
+
+
+
+/* =========================
+    SOP
+   ========================= */
+
+.sop-item {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sop-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sop-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: var(--merah);
+    color: #fff;
+    border: 1px solid var(--merah);
+    border-radius: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* HOVER */
+.sop-download:hover {
+    background: #fff;
+    color: var(--merah);
+    border-color: var(--merah);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+.sop-download:hover span {
+    transform: translateY(2px);
+}
+
+.sop-download span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.sop-preview-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+
+.sop-filter-btn {
+    background: #f1f3f5;
+    color: #222;
+    border: 1px solid #e0e0e0;
+    padding: 9px 22px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+.sop-filter-btn:hover {
+    background: #ffffff;
+    color: var(--merah);
+    border-color: var(--merah);
+}
+
+/* Filter yang sedang aktif */
+.sop-filter-btn.aktif {
+    background: var(--merah);
+    color: #ffffff;
+    border-color: var(--merah);
+}
+
+
+
+/* =========================
+   KONTAK
+   ========================= */
+
+.kontak-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+/* Informasi kontak tetap seperti desain awal */
+.kolom-teks-profil {
+    min-width: 0;
+}
+
+/* Form di sebelah kanan */
+.kolom-form-kontak {
+    min-width: 0;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.kolom-form-kontak h3 {
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+    .kontak-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+.kontak-map {
+    margin-top: 24px;
+    width: 100%;
+    height: 203px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.kontak-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* =========================
+   ADMIN PORTAL
+   ========================= */
+
+
+.btn-keluar {
+    background: var(--merah);
+    color: #fff !important;
+    border: 1px solid var(--merah);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: .85rem;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-keluar:hover {
+    background: #a80000;
+    color: #fff !important;
+}
+
+
+
+
+/* ===== PERBAIKAN TOMBOL ADMIN KONTEN ===== */
+
+.admin-body .btn-outline {
+    display: inline-block;
+    background: #fff;
+    color: var(--merah) !important;
+    border: 1px solid var(--merah);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: .85rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.admin-body .btn-outline:hover {
+    background: var(--merah);
+    color: #fff !important;
+}
+
+.admin-body .btn-merah {
+    display: inline-block;
+    background: var(--merah) !important;
+    color: #fff !important;
+    border: 1px solid var(--merah);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.admin-body .btn-merah:hover {
+    background: #a80000 !important;
+    color: #fff !important;
+}

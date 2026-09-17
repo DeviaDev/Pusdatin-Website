@@ -71,7 +71,11 @@
                     </div>
                     <span style="font-size:.9rem;">&#128100; {{ auth()->user()->nama }} <span class="badge badge-ditolak" style="font-size:.7rem;">ADMIN</span></span>
                     <form method="POST" action="{{ route('logout') }}">@csrf
-                        <button type="submit" class="btn-outline" style="cursor:pointer">Keluar</button>
+                        <button type="submit"
+                                class="btn-keluar"
+                                style="cursor:pointer;">
+                            Keluar
+                        </button>
                     </form>
                 </div>
             </header>

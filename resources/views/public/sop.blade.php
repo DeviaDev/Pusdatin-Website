@@ -20,22 +20,31 @@
     <div style="display:grid; grid-template-columns: 320px 1fr; gap:24px; height:calc(100vh - 260px); min-height:500px;" class="sop-wrap">
         <div id="sop-list" style="overflow-y:auto; padding-right:4px;">
             @foreach ($sopList as $i => $sop)
-                <div class="kartu sop-item" data-klas="{{ $sop->klasifikasi }}" data-cari="{{ strtolower($sop->kode.' '.$sop->nama) }}"
-                     style="margin-bottom:10px; cursor:pointer;"
-                     onclick="document.querySelectorAll('.sop-prev').forEach(e=>e.style.display='none');document.getElementById('sop-{{ $sop->id }}').style.display='block';">
-                    <small style="color:#999;">{{ $sop->kode }} &middot; {{ $sop->klasifikasi }}</small>
+                <div class="sop-item"
+                    data-klas="{{ $sop->klasifikasi }}"
+                    data-cari="{{ strtolower($sop->kode.' '.$sop->nama) }}"
+                    style="margin-bottom:10px; cursor:pointer;"
+                    onclick="document.querySelectorAll('.sop-prev').forEach(e=>e.style.display='none');document.getElementById('sop-{{ $sop->id }}').style.display='block';">
+
+                    <small style="color:#999;">
+                        {{ $sop->kode }} &middot; {{ $sop->klasifikasi }}
+                    </small>
+
                     <h3>{{ $sop->nama }}</h3>
+
                     @if ($sop->file_path)
-                        <a href="{{ route('sop.unduh', $sop) }}" onclick="event.stopPropagation();"
-                        style="display:inline-block; margin-top:10px; background:var(--merah); color:#fff; font-size:.8rem; font-weight:600; padding:7px 16px; border-radius:6px; text-decoration:none;">
-                            &#8681; Unduh Dokumen
-                        </a>
+                        <a href="{{ route('sop.unduh', $sop) }}"
+                            onclick="event.stopPropagation();"
+                            class="sop-download">
+                                <span>&#8681;</span> Unduh Dokumen
+                            </a>
                     @endif
+
                 </div>
             @endforeach
         </div>
 
-        <div class="kartu" style="overflow-y:auto;">
+        <div class="sop-preview-card">
             @foreach ($sopList as $i => $sop)
                 <div class="sop-prev" id="sop-{{ $sop->id }}" style="display: {{ $i === 0 ? 'block' : 'none' }};">
                     <h3 style="text-align:center;">{{ $sop->nama }}</h3>

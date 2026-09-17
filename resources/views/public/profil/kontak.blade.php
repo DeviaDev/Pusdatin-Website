@@ -20,8 +20,12 @@
 </div>
 
 <section class="konten-profil-wrap reveal-tab">
-    <div class="grid-profil-main">
+
+    <div class="kontak-layout">
+
+        {{-- KOLOM KIRI: INFORMASI KONTAK --}}
         <div class="kolom-teks-profil">
+
             <span class="sub-judul-merah">HUBUNGI KAMI</span>
             <h2>Informasi Kontak</h2>
 
@@ -57,32 +61,80 @@
                 </div>
             </div>
 
-            <div class="kolom-form-kontak" style="margin-top: 32px;">
-                <h3>Kirim Pesan</h3>
-                <form action="#" method="POST" class="stack">
-                    @csrf
-                    <div class="baris-form-dual">
-                        <div>
-                            <label>Nama Lengkap <span class="req">*</span></label>
-                            <input type="text" placeholder="Nama Anda" required>
-                        </div>
-                        <div>
-                            <label>Instansi</label>
-                            <input type="text" placeholder="Nama Instansi">
-                        </div>
-                    </div>
 
-                    <label>Email <span class="req">*</span></label>
-                    <input type="email" placeholder="email@contoh.com" required>
-
-                    <label>Subjek <span class="req">*</span></label>
-                    <input type="text" placeholder="Subjek pesan" required>
-
-                    <label>Pesan <span class="req">*</span></label>
-                    <textarea rows="4" placeholder="Tulis pesan Anda di sini..." required></textarea>
-
-                    <button type="submit" class="btn-merah" style="width: 100%; margin-top: 18px; padding: 12px;">Kirim Pesan</button>
-                </form>
+       
+            <div class="kontak-map">
+                <iframe
+                    src="https://www.google.com/maps?q=Jl.%20Ir.%20H.%20Juanda%20No.%201,%20Jakarta%20Pusat&output=embed"
+                    width="100%"
+                    height="220"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
+
+
+        {{-- KOLOM KANAN: FORM --}}
+        <div class="kolom-form-kontak">
+
+            <h3>Kirim Pesan</h3>
+
+            <form action="{{ route('profil.kontak.kirim') }}" method="POST" class="stack">
+    @csrf
+
+    <div class="baris-form-dual">
+        <div>
+            <label>Nama Lengkap <span class="req">*</span></label>
+            <input type="text"
+                   name="nama"
+                   placeholder="Nama Anda"
+                   value="{{ old('nama') }}"
+                   required>
+        </div>
+
+        <div>
+            <label>Instansi</label>
+            <input type="text"
+                   name="instansi"
+                   placeholder="Nama Instansi"
+                   value="{{ old('instansi') }}">
+        </div>
+    </div>
+
+    <label>Email <span class="req">*</span></label>
+    <input type="email"
+           name="email"
+           placeholder="email@contoh.com"
+           value="{{ old('email') }}"
+           required>
+
+    <label>Subjek <span class="req">*</span></label>
+    <input type="text"
+           name="subjek"
+           placeholder="Subjek pesan"
+           value="{{ old('subjek') }}"
+           required>
+
+    <label>Pesan <span class="req">*</span></label>
+    <textarea name="pesan"
+              rows="5"
+              placeholder="Tulis pesan Anda di sini..."
+              required>{{ old('pesan') }}</textarea>
+
+    <button type="submit"
+            class="btn-merah"
+            style="width:100%; margin-top:18px; padding:12px;">
+        Kirim Pesan
+    </button>
+</form>
+
+        </div>
+
+    </div>
+
+</section>
+
 @endsection

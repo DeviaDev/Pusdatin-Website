@@ -64,19 +64,76 @@
             @method('DELETE')
         </form>
 
-        <hr style="margin:20px 0;">
-        <h4 style="margin-bottom:8px;">Tambah Field Baru</h4>
-        <form method="POST" action="{{ route('admin.konten.field.store', $group) }}" class="stack" style="max-width:400px;">
-            @csrf
-            <input type="text" name="key" placeholder="key, mis: nama_mitra_2 (jadi mitra.nama_mitra_2)" required>
-            <input type="text" name="label" placeholder="Label, mis: Nama Mitra 2" required>
-            <select name="type">
-                <option value="text">Teks pendek</option>
-                <option value="textarea">Teks panjang</option>
-                <option value="image">Gambar / Logo</option>
-            </select>
-            <button type="submit" class="btn-outline">+ Tambah Field</button>
-        </form>
+        @if ($group->slug === 'mitra')
+
+    <hr style="margin:20px 0;">
+
+    <h4 style="margin-bottom:8px;">Tambah Mitra Baru</h4>
+
+    <p style="color:#777; font-size:.85rem; margin-bottom:14px;">
+        Tambahkan nama dan logo mitra sekaligus.
+    </p>
+
+    <form method="POST"
+          action="{{ route('admin.konten.mitra.store', $group) }}"
+          class="stack"
+          style="max-width:400px;"
+          enctype="multipart/form-data">
+
+        @csrf
+
+        <label>Nama Mitra</label>
+        <input type="text"
+               name="nama"
+               placeholder="Contoh: Kementerian Komunikasi dan Informatika"
+               required>
+
+        <label>Logo Mitra</label>
+        <input type="file"
+               name="logo"
+               accept="image/*"
+               required>
+
+        <button type="submit" class="btn-merah">
+            + Tambah Mitra
+        </button>
+
+    </form>
+
+@else
+
+    <hr style="margin:20px 0;">
+
+    <h4 style="margin-bottom:8px;">Tambah Field Baru</h4>
+
+    <form method="POST"
+          action="{{ route('admin.konten.field.store', $group) }}"
+          class="stack"
+          style="max-width:400px;">
+
+        @csrf
+
+        <input type="text"
+               name="key"
+               placeholder="key, mis: judul">
+
+        <input type="text"
+               name="label"
+               placeholder="Label">
+
+        <select name="type">
+            <option value="text">Teks pendek</option>
+            <option value="textarea">Teks panjang</option>
+            <option value="image">Gambar / Logo</option>
+        </select>
+
+        <button type="submit" class="btn-outline">
+            + Tambah Field
+        </button>
+
+    </form>
+
+@endif
     </div>
 </div>
 
