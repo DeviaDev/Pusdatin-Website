@@ -27,7 +27,9 @@
         @auth
             <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('portal.dashboard') }}" class="btn-merah">Portal Saya</a>
         @else
-            <a href="{{ route('login') }}" class="btn-merah">Masuk</a>
+            @if (!request()->routeIs('login'))
+                <a href="{{ route('login') }}" class="btn-merah">Masuk</a>
+            @endif
         @endauth
     </header>
 

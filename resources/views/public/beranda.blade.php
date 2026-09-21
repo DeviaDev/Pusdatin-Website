@@ -1,5 +1,11 @@
 @extends('layouts.public')
 @section('title', 'Beranda')
+@php
+    $mitraFields = \App\Models\ContentGroupField::where('key', 'like', 'mitra.logo_%')
+        ->where('type', 'image')
+        ->orderBy('urutan')
+        ->get();
+@endphp
 @section('content')
     <section class="hero">
         <h1>{!! nl2br(e(content('beranda.judul', "Pusat Data dan Teknologi Informasi BNPT"))) !!}</h1>
@@ -83,7 +89,11 @@
             <div class="grid-berita" id="beritaContainer">
                 @foreach ($pengumuman as $item)
                     <a href="{{ route('informasi.show', $item) }}" class="kartu-berita">
-                        <div class="berita-image" style="background-image: url('{{ $item->gambar ? asset('storage/'.$item->gambar) : asset('images/default-news.jpg') }}');"></div>
+                        <div class="berita-thumb"
+                            style="background-image:url('{{ $item->foto ? asset('storage/'.$item->foto) : asset('images/default-news.jpg') }}');
+                                background-size:cover;
+                                background-position:center;">
+                        </div>
                         <div class="glass-overlay">
                             <div class="glass-header">
                                 <span class="badge-kategori">{{ $item->kategori }}</span>
@@ -115,16 +125,46 @@
     </section>
     @endif
 
-    <section class="konten" style="text-align:center;">
-        <h2>Mitra Pusdatin</h2>
-        <div style="display:flex; gap:40px; justify-content:center; flex-wrap:wrap; color:#999; font-weight:600;">
-            <span>dgital</span><span>KOMINFO</span><span>JDN</span><span>LAPOR!</span>
-        </div>
+  <section class="konten mitra-section">
 
-        {{-- helper content() lama tetap jalan, cukup pakai key yang sesuai --}}
-        <h3>{{ content('mitra.nama_1') }}</h3>
-        <img src="{{ asset('storage/'.content('mitra.logo_1')) }}" alt="Mitra">
-    </section>
+    <div class="judul-section">
+        <span class="sub-judul">KERJA SAMA</span>
+        <h2>Mitra Pusdatin</h2>
+    </div>
+
+    <div class="mitra-grid">
+
+        @foreach ($mitraFields as $logoField)
+
+            @php
+                $nomor = str_replace('mitra.logo_', '', $logoField->key);
+                $nama = content('mitra.nama_' . $nomor);
+                $logo = content($logoField->key);
+            @endphp
+
+            @if ($logo)
+
+                <div class="mitra-item">
+
+                    <img src="{{ asset('storage/' . $logo) }}"
+                         class="mitra-logo"
+                         alt="{{ $nama ?: 'Mitra Pusdatin' }}">
+
+                    @if ($nama)
+                        <span class="mitra-nama">
+                            {{ $nama }}
+                        </span>
+                    @endif
+
+                </div>
+
+            @endif
+
+        @endforeach
+
+    </div>
+
+</section>
 
     <!-- Script Pendeteksi Scroll & Horizontal Scroll Button -->
     <script>

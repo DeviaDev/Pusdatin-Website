@@ -24,6 +24,18 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// ===================== PUBLIK =====================
+Route::get('/', [PublicController::class, 'beranda'])->name('beranda');
+
+Route::get('/profil/{section?}', [PublicController::class, 'profil'])
+    ->name('profil')
+    ->whereIn('section', ['tentang', 'tugas-fungsi', 'visi-misi', 'struktur', 'kontak']);
+
+Route::post('/profil/kontak', [PublicController::class, 'kirimKontak'])
+    ->name('profil.kontak.kirim');
+
+Route::get('/informasi', [PublicController::class, 'informasi'])->name('informasi');
+
 // ===================== PORTAL PEGAWAI =====================
 Route::middleware(['auth'])->prefix('portal')->name('portal.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -53,16 +65,36 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('pengumuman', AnnouncementController::class)->except(['show']);
 
     // Konten website (beranda & profil) — sistem section dinamis
-    Route::prefix('konten')->name('konten.')->group(function () {
-        Route::get('/', [ContentController::class, 'index'])->name('index');
-        Route::post('/section', [ContentController::class, 'storeGroup'])->name('section.store');
-        Route::get('/{group:slug}', [ContentController::class, 'edit'])->name('edit');
-        Route::put('/{group:slug}', [ContentController::class, 'update'])->name('update');
-        Route::post('/{group:slug}/field', [ContentController::class, 'storeField'])->name('field.store');
-        Route::delete('/field/{field}', [ContentController::class, 'destroyField'])->name('field.destroy');
-    });
+    // Konten website (beranda, profil, mitra, dll)
+Route::prefix('konten')->name('konten.')->group(function () {
+
+    Route::get('/', [ContentController::class, 'index'])
+        ->name('index');
+
+    Route::post('/section', [ContentController::class, 'storeGroup'])
+        ->name('section.store');
+
+    Route::get('/{group:slug}', [ContentController::class, 'edit'])
+        ->name('edit');
+
+    Route::put('/{group:slug}', [ContentController::class, 'update'])
+        ->name('update');
+
+    // Tambah field biasa
+    Route::post('/{group:slug}/field', [ContentController::class, 'storeField'])
+        ->name('field.store');
+
+    // Tambah Mitra sekaligus nama + logo
+    Route::post('/{group:slug}/mitra', [ContentController::class, 'storeMitra'])
+        ->name('mitra.store');
+
+    Route::delete('/field/{field}', [ContentController::class, 'destroyField'])
+        ->name('field.destroy');
+});
 
     // Dokumen SOP
     Route::resource('sop', SopController::class)->except(['show']);
     Route::get('/sop/{sop}/unduh', [SopController::class, 'download'])->name('sop.unduh');
+
+    
 });
