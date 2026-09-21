@@ -6,8 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Portal Pegawai') — Pusdatin BNPT</title>
     <link rel="stylesheet" href="{{ asset('css/pusdatin.css') }}">
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div class="topbar">
@@ -15,41 +13,53 @@
         <span class="lang"><a href="#" class="aktif">Indonesia</a><a href="#">English</a></span>
     </div>
 
-    <div class="portal-mobile-header">
-    <div class="portal-mobile-title">
+    <header class="site">
         <a href="{{ route('beranda') }}" class="logo">
             <div class="kotak">BNPT</div>
-            <div class="nama">
-                PUSDATIN BNPT
-                <small>Pusat Data dan Informasi</small>
-            </div>
+            <div class="nama">PUSDATIN BNPT<small>Pusat Data dan Informasi</small></div>
         </a>
-    </div>
+        
+        <nav class="main">
+            <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('portal.dashboard') }}" class="{{ request()->routeIs('portal.dashboard', 'admin.dashboard') ? 'aktif' : '' }}">Dashboard</a>
+            <a href="{{ route('profil') }}" class="{{ request()->routeIs('profil*') ? 'aktif' : '' }}">Profil</a>
+            <a href="{{ route('informasi') }}" class="{{ request()->routeIs('informasi*') ? 'aktif' : '' }}">Informasi</a>
+            <a href="{{ route('sop') }}" class="{{ request()->routeIs('sop') ? 'aktif' : '' }}">SOP Pusdatin</a>
+        </nav>
 
-    <button type="button"
-            class="portal-menu-toggle"
-            id="portalMenuToggle"
-            aria-label="Buka menu">
-        <i class="bi bi-list"></i>
-    </button>
-</div>
+        <div style="display:flex; align-items:center; gap:16px;">
+            <!-- Dropdown Notifikasi -->
+            <div class="drop" id="notif-drop">
+                <button style="background:none; border:none; cursor:pointer; font-size:1.2rem; position:relative; line-height:1;" aria-label="Notifikasi">
+                    &#128276;
+                    @if (auth()->user()->unreadNotifications->count())
+                        <span class="notif-dot">{{ auth()->user()->unreadNotifications->count() }}</span>
+                    @endif
+                </button>
+                <div class="drop-menu">
+                    @forelse (auth()->user()->notifications()->latest()->take(6)->get() as $n)
+                        <div class="item" style="{{ $n->read_at ? '' : 'background:#fbf1f3;' }}">
+                            {{ $n->data['pesan'] ?? 'Notifikasi' }}<br>
+                            <small>{{ $n->created_at->diffForHumans() }}</small>
+                        </div>
+                    @empty
+                        <div class="item">Belum ada notifikasi.</div>
+                    @endforelse
+                    <div class="item" style="text-align:center;">
+                        <a href="{{ route('portal.notifikasi.baca') }}" onclick="event.preventDefault(); document.getElementById('baca-semua').submit();" style="color:var(--merah)">Tandai semua dibaca</a>
+                    </div>
+                </div>
+            </div>
+            <form id="baca-semua" method="POST" action="{{ route('portal.notifikasi.baca') }}" style="display:none">@csrf</form>
 
-<div class="portal-overlay" id="portalOverlay"></div>
+            <!-- Nama User -->
+            <span style="font-size:.9rem; white-space:nowrap;">&#128100; {{ auth()->user()->nama }}</span>
 
-<header class="site">
-
-    {{-- LOGO --}}
-    <a href="{{ route('beranda') }}" class="logo">
-        <div class="kotak">BNPT</div>
-        <div class="nama">
-            PUSDATIN BNPT
-            <small>Pusat Data dan Informasi</small>
+            <!-- Tombol Keluar dengan Reset Form -->
+            <form method="POST" action="{{ route('logout') }}" style="margin:0; padding:0; display:inline-block;">@csrf
+                <button type="submit" class="btn-merah" style="cursor:pointer; font-family:inherit; border:none; outline:none;">Keluar</button>
+            </form>
         </div>
-    </a>
-
-
-
-</header>
+    </header>
 
     <div class="portal-wrap">
         <aside class="sidebar">
@@ -72,46 +82,10 @@
     </div>
 
     <script src="{{ asset('js/accessibility.js') }}"></script>
-
-
-
-  <script>
-    const portalMenuToggle = document.getElementById('portalMenuToggle');
-    const portalSide = document.querySelector('.sidebar');
-    const portalOverlay = document.getElementById('portalOverlay');
-
-    if (portalMenuToggle && portalSide && portalOverlay) {
-
-        portalMenuToggle.addEventListener('click', function () {
-
-            portalSide.classList.toggle('mobile-open');
-            portalOverlay.classList.toggle('active');
-
-            const icon = this.querySelector('i');
-
-            if (portalSide.classList.contains('mobile-open')) {
-                icon.classList.remove('bi-list');
-                icon.classList.add('bi-x-lg');
-            } else {
-                icon.classList.remove('bi-x-lg');
-                icon.classList.add('bi-list');
-            }
+    <script>
+        document.getElementById('notif-drop').querySelector('button').addEventListener('click', function () {
+            document.getElementById('notif-drop').classList.toggle('open');
         });
-
-        portalOverlay.addEventListener('click', function () {
-
-            portalSide.classList.remove('mobile-open');
-            portalOverlay.classList.remove('active');
-
-            const icon = portalMenuToggle.querySelector('i');
-
-            icon.classList.remove('bi-x-lg');
-            icon.classList.add('bi-list');
-        });
-
-    }
-</script>
-
-
+    </script>
 </body>
 </html>

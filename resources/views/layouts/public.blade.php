@@ -14,64 +14,22 @@
     </div>
 
     <header class="site">
-
-    <a href="{{ route('beranda') }}" class="logo">
-        <div class="kotak">BNPT</div>
-        <div class="nama">
-            PUSDATIN BNPT
-            <small>Pusat Data dan Informasi</small>
-        </div>
-    </a>
-
-    {{-- Tombol hamburger --}}
-   <button type="button"
-        class="menu-toggle"
-        id="portalMenuToggle"
-        aria-label="Buka menu">
-    ☰
-</button>
-
-    {{-- Menu navigasi --}}
-    <div class="header-menu" id="headerMenu">
-
+        <a href="{{ route('beranda') }}" class="logo">
+            <div class="kotak">BNPT</div>
+            <div class="nama">PUSDATIN BNPT<small>Pusat Data dan Informasi</small></div>
+        </a>
         <nav class="main">
-            <a href="{{ route('beranda') }}"
-               class="{{ request()->routeIs('beranda') ? 'aktif' : '' }}">
-                Beranda
-            </a>
-
-            <a href="{{ route('profil') }}"
-               class="{{ request()->routeIs('profil*') ? 'aktif' : '' }}">
-                Profil
-            </a>
-
-            <a href="{{ route('informasi') }}"
-               class="{{ request()->routeIs('informasi*') ? 'aktif' : '' }}">
-                Informasi
-            </a>
-
-            <a href="{{ route('sop') }}"
-               class="{{ request()->routeIs('sop') ? 'aktif' : '' }}">
-                SOP Pusdatin
-            </a>
+            <a href="{{ route('beranda') }}" class="{{ request()->routeIs('beranda') ? 'aktif' : '' }}">Beranda</a>
+            <a href="{{ route('profil') }}" class="{{ request()->routeIs('profil*') ? 'aktif' : '' }}">Profil</a>
+            <a href="{{ route('informasi') }}" class="{{ request()->routeIs('informasi*') ? 'aktif' : '' }}">Informasi</a>
+            <a href="{{ route('sop') }}" class="{{ request()->routeIs('sop') ? 'aktif' : '' }}">SOP Pusdatin</a>
         </nav>
-
         @auth
-            <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('portal.dashboard') }}"
-               class="btn-merah">
-                Portal Saya
-            </a>
+            <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('portal.dashboard') }}" class="btn-merah">Portal Saya</a>
         @else
-            @if (!request()->routeIs('login'))
-                <a href="{{ route('login') }}" class="btn-merah">
-                    Masuk
-                </a>
-            @endif
+            <a href="{{ route('login') }}" class="btn-merah">Masuk</a>
         @endauth
-
-    </div>
-
-</header>
+    </header>
 
     @if (session('success'))
         <div style="padding: 12px 5%; background:#d1e7dd; color:#146c43;">{{ session('success') }}</div>
@@ -115,30 +73,6 @@
     </footer>
 
     <script src="{{ asset('js/accessibility.js') }}"></script>
-<script src="{{ asset('js/chatbot.js') }}"></script>
-
-<script>
-    const menuToggle = document.getElementById('portalMenuToggle');
-    const headerMenu = document.getElementById('headerMenu');
-
-    if (menuToggle && headerMenu) {
-
-        menuToggle.addEventListener('click', function () {
-
-            menuToggle.classList.toggle('active');
-            headerMenu.classList.toggle('active');
-
-            if (headerMenu.classList.contains('active')) {
-                menuToggle.innerHTML = '×';
-                menuToggle.setAttribute('aria-label', 'Tutup menu');
-            } else {
-                menuToggle.innerHTML = '☰';
-                menuToggle.setAttribute('aria-label', 'Buka menu');
-            }
-
-        });
-
-    }
-</script>
-
+    <script src="{{ asset('js/chatbot.js') }}"></script>
 </body>
+</html>
