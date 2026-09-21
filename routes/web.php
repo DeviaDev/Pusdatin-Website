@@ -32,6 +32,11 @@ Route::middleware(['auth'])->prefix('portal')->name('portal.')->group(function (
     Route::get('/tiket', [PortalTicketController::class, 'index'])->name('tiket.index');
     Route::get('/tiket/buat/{kategori?}', [PortalTicketController::class, 'create'])->name('tiket.create');
     Route::post('/tiket/buat/{kategori}', [PortalTicketController::class, 'store'])->name('tiket.store');
+    Route::get('/tiket/{tiket}/download-local', [PortalTicketController::class, 'downloadLocal'])->name('tiket.download-local');
+
+    // Route untuk Hapus Tiket
+    Route::delete('/tiket/{tiket}', [PortalTicketController::class, 'destroy'])->name('tiket.destroy');
+
     Route::get('/tiket/{tiket}', [PortalTicketController::class, 'show'])->name('tiket.show');
 });
 
