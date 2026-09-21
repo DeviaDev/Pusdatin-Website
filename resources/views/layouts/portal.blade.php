@@ -18,15 +18,18 @@
             <div class="kotak">BNPT</div>
             <div class="nama">PUSDATIN BNPT<small>Pusat Data dan Informasi</small></div>
         </a>
+        
         <nav class="main">
-            <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('portal.dashboard') }}" class="aktif">Dashboard</a>
-            <a href="{{ route('profil') }}">Profil</a>
-            <a href="{{ route('informasi') }}">Informasi</a>
-            <a href="{{ route('sop') }}">SOP Pusdatin</a>
+            <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('portal.dashboard') }}" class="{{ request()->routeIs('portal.dashboard', 'admin.dashboard') ? 'aktif' : '' }}">Dashboard</a>
+            <a href="{{ route('profil') }}" class="{{ request()->routeIs('profil*') ? 'aktif' : '' }}">Profil</a>
+            <a href="{{ route('informasi') }}" class="{{ request()->routeIs('informasi*') ? 'aktif' : '' }}">Informasi</a>
+            <a href="{{ route('sop') }}" class="{{ request()->routeIs('sop') ? 'aktif' : '' }}">SOP Pusdatin</a>
         </nav>
+
         <div style="display:flex; align-items:center; gap:16px;">
+            <!-- Dropdown Notifikasi -->
             <div class="drop" id="notif-drop">
-                <button style="background:none;border:none;cursor:pointer;font-size:1.2rem;position:relative;" aria-label="Notifikasi">
+                <button style="background:none; border:none; cursor:pointer; font-size:1.2rem; position:relative; line-height:1;" aria-label="Notifikasi">
                     &#128276;
                     @if (auth()->user()->unreadNotifications->count())
                         <span class="notif-dot">{{ auth()->user()->unreadNotifications->count() }}</span>
@@ -47,9 +50,13 @@
                 </div>
             </div>
             <form id="baca-semua" method="POST" action="{{ route('portal.notifikasi.baca') }}" style="display:none">@csrf</form>
-            <span style="font-size:.9rem;">&#128100; {{ auth()->user()->nama }}</span>
-            <form method="POST" action="{{ route('logout') }}">@csrf
-                <button type="submit" class="btn-outline" style="cursor:pointer">Keluar</button>
+
+            <!-- Nama User -->
+            <span style="font-size:.9rem; white-space:nowrap;">&#128100; {{ auth()->user()->nama }}</span>
+
+            <!-- Tombol Keluar dengan Reset Form -->
+            <form method="POST" action="{{ route('logout') }}" style="margin:0; padding:0; display:inline-block;">@csrf
+                <button type="submit" class="btn-merah" style="cursor:pointer; font-family:inherit; border:none; outline:none;">Keluar</button>
             </form>
         </div>
     </header>
@@ -66,10 +73,6 @@
         </aside>
 
         <main class="portal-main">
-            <div class="portal-top">
-                <strong>@yield('page-title', 'Dashboard')</strong>
-                <a href="{{ route('portal.tiket.create') }}" class="btn-merah">+ Buat Tiket</a>
-            </div>
             <div class="portal-body">
                 @if (session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
                 @if (session('error'))<div class="alert alert-error">{{ session('error') }}</div>@endif
