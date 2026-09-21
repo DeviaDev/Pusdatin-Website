@@ -25,9 +25,6 @@
         <p style="font-size:.85rem; margin-top:16px;">
             Lupa password? <a href="#" style="color:var(--merah);">Hubungi Helpdesk TI</a>
         </p>
-        <p style="font-size:.78rem; color:#999; margin-top:10px; background:var(--abu); padding:10px; border-radius:6px;">
-            Demo: NIP <b>197501012000011001</b> / <b>198003032005011002</b> &middot; password: <b>password</b>
-        </p>
     </div>
 </section>
 @endsection

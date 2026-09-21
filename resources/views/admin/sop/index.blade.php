@@ -24,12 +24,32 @@
                         </td>
                         <td><span class="badge {{ $s->is_active ? 'badge-selesai' : 'badge-pending' }}">{{ $s->is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
                         <td>
-                            <a href="{{ route('admin.sop.edit', $s) }}" style="color:var(--merah); font-size:.85rem;">Edit</a>
-                            <form method="POST" action="{{ route('admin.sop.destroy', $s) }}" style="display:inline;" onsubmit="return confirm('Hapus dokumen SOP ini?')">
-                                @csrf @method('DELETE')
-                                <button style="background:none;border:none;color:#9c1c28;cursor:pointer;font-size:.85rem;">Hapus</button>
-                            </form>
-                        </td>
+    <div class="aksi-tabel">
+
+        <a href="{{ route('admin.sop.edit', $s) }}"
+           class="btn-aksi btn-edit"
+           title="Edit">
+            <i class="bi bi-pencil-square"></i>
+        </a>
+
+        <form method="POST"
+              action="{{ route('admin.sop.destroy', $s) }}"
+              style="display:inline;"
+              onsubmit="return confirm('Hapus dokumen SOP ini?')">
+
+            @csrf
+            @method('DELETE')
+
+            <button type="submit"
+                    class="btn-aksi btn-hapus"
+                    title="Hapus">
+                <i class="bi bi-trash3"></i>
+            </button>
+
+        </form>
+
+    </div>
+</td>
                     </tr>
                 @empty
                     <tr><td colspan="6" style="text-align:center; color:#888;">Belum ada dokumen SOP. <a href="{{ route('admin.sop.create') }}" style="color:var(--merah)">Tambah sekarang</a>.</td></tr>

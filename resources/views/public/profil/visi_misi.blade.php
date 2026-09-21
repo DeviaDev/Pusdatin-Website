@@ -49,15 +49,20 @@
         array_map(
             'trim',
             explode(
-                ';',
+                "\n",
                 content(
                     'profil.misi',
-                    'Mengelola infrastruktur TI yang handal; menyediakan layanan TI yang prima; mengembangkan SDM TI yang kompeten; menerapkan tata kelola keamanan informasi.'
+                    "Mengelola infrastruktur TI yang andal
+Menyediakan layanan TI yang prima
+Mengembangkan SDM TI yang kompeten
+Menerapkan tata kelola keamanan informasi"
                 )
             )
         )
     );
 @endphp
+```
+
 
 <section class="konten-profil-wrap reveal-tab">
     <div class="container-profil layout-human">

@@ -17,12 +17,30 @@
                         <td><span class="badge {{ $p->is_published ? 'badge-selesai' : 'badge-pending' }}">{{ $p->is_published ? 'Terbit' : 'Draft' }}</span></td>
                         <td>{{ $p->published_at?->format('d/m/Y') ?? '-' }}</td>
                         <td>
-                            <a href="{{ route('admin.pengumuman.edit', $p) }}" style="color:var(--merah); font-size:.85rem;">Edit</a>
-                            <form method="POST" action="{{ route('admin.pengumuman.destroy', $p) }}" style="display:inline;" onsubmit="return confirm('Hapus pengumuman ini?')">
-                                @csrf @method('DELETE')
-                                <button style="background:none;border:none;color:#9c1c28;cursor:pointer;font-size:.85rem;">Hapus</button>
-                            </form>
-                        </td>
+    <div class="aksi-tabel">
+
+        <a href="{{ route('admin.pengumuman.edit', $p) }}"
+           class="btn-aksi btn-edit"
+           title="Edit">
+            <i class="bi bi-pencil-square"></i>
+        </a>
+
+        <form method="POST"
+              action="{{ route('admin.pengumuman.destroy', $p) }}"
+              style="display:inline;"
+              onsubmit="return confirm('Hapus pengumuman ini?')">
+            @csrf
+            @method('DELETE')
+
+            <button type="submit"
+                    class="btn-aksi btn-hapus"
+                    title="Hapus">
+                <i class="bi bi-trash3"></i>
+            </button>
+        </form>
+
+    </div>
+</td>
                     </tr>
                 @endforeach
             </tbody>
