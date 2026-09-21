@@ -1686,9 +1686,6 @@ form.stack textarea:focus {
 }
 
 @media (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
     .hero h1 {
         font-size: 1.6rem;
     }
@@ -2090,4 +2087,329 @@ form.stack textarea:focus {
 /* Menggeser panah dropdown bawaan agak masuk ke dalam */
 form.stack select {
     padding-right: 60px !important;
+}
+
+/* =========================================
+   HEADER RESPONSIVE
+   ========================================= */
+
+header.site {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* Logo */
+header.site .logo {
+    flex-shrink: 0;
+}
+
+/* Wrapper menu + tombol portal */
+.header-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 30px;
+    flex: 1;
+}
+
+/* Navigation */
+header.site .main {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+/* Hamburger */
+.menu-toggle {
+    display: none;
+    border: none;
+    background: transparent;
+    color: #c8102e;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 5px;
+}
+
+
+/* =========================================
+   TABLET / MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    /* Header */
+    header.site {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    /* Hamburger */
+    header.site .menu-toggle {
+        display: flex !important;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 42px;
+        height: 42px;
+
+        margin-left: auto;
+        padding: 0;
+
+        border: none;
+        background: transparent;
+
+        color: #c8102e;
+        font-size: 30px;
+        line-height: 1;
+
+        cursor: pointer;
+
+        flex-shrink: 0;
+    }
+
+    /* MENU TERTUTUP */
+    header.site .header-menu {
+        display: none !important;
+
+        width: 100%;
+
+        flex: none;
+
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 0;
+
+        padding: 15px 0 0;
+        margin-top: 15px;
+
+        border-top: 1px solid #eee;
+    }
+
+    /* MENU TERBUKA */
+    header.site .header-menu.active {
+        display: flex !important;
+    }
+
+    /* Navigation */
+    header.site .main {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 0;
+    }
+
+    header.site .main a {
+        display: block;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 14px 5px;
+
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    /* Tombol Portal */
+    header.site .header-menu .btn-merah {
+        display: block;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        margin-top: 15px;
+
+        text-align: center;
+    }
+}
+
+/* =========================
+   PORTAL MOBILE (drawer sidebar)
+   ========================= */
+
+/* =========================
+   PORTAL MOBILE (drawer sidebar)
+   ========================= */
+
+.portal-mobile-header {
+    display: none;
+}
+
+.portal-overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    header.site.portal-topnav {
+        display: none !important;
+    }
+
+    .portal-mobile-header {
+        display: flex;
+        position: sticky;
+        top: 0;
+        z-index: 1300;
+        height: 64px;
+        padding: 0 8px 0 16px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        box-sizing: border-box;
+    }
+
+    .portal-mobile-header .logo {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .portal-mobile-header .nama {
+        font-size: 15px;
+        line-height: 1.15;
+        white-space: nowrap;
+    }
+
+    .portal-mobile-header .nama small {
+        font-size: 10px;
+    }
+
+    .portal-mobile-header .kotak {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        font-size: 12px;
+    }
+
+    .portal-mobile-actions {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex-shrink: 0;
+    }
+
+    .portal-mobile-notif {
+    position: relative;
+}
+
+.portal-mobile-notif > button {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+    /* dropdown notif versi mobile: melebar penuh di bawah header, bukan nempel ke kanan tombol */
+    .portal-mobile-notif .drop-menu {
+        position: fixed;
+        top: 64px;
+        left: 12px;
+        right: 12px;
+        width: auto;
+    }
+
+    .portal-menu-toggle {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: transparent;
+        color: #c8102e;
+        font-size: 24px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .portal-wrap {
+        display: block;
+    }
+
+    .sidebar {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed !important;
+        top: 64px;                     /* <-- mulai di bawah header, bukan nutupin */
+        left: 0;
+        width: 280px !important;
+        height: calc(100vh - 64px);
+        z-index: 1200;
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+        overflow-y: auto;
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+    .portal-overlay {
+        position: fixed;
+        top: 64px;                     /* <-- overlay juga mulai di bawah header */
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1150;
+        background: rgba(0, 0, 0, .45);
+    }
+
+    .portal-overlay.active {
+        display: block;
+    }
+
+    .sidebar-mobile-footer {
+        display: block;
+        margin-top: auto;
+        padding: 16px 22px 22px;
+        border-top: 1px solid #eee;
+    }
+
+    .sidebar-mobile-footer .nama-user {
+        font-size: .88rem;
+        color: #333;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .sidebar-mobile-footer .btn-keluar {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}
+
+@media (min-width: 769px) {
+    .sidebar-mobile-footer {
+        display: none;
+    }
 }
