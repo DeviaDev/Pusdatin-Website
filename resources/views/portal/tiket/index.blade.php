@@ -7,7 +7,8 @@
             <h3 style="margin:0;">Daftar Tiket Saya</h3>
             <a href="{{ route('portal.tiket.create') }}" class="btn-merah">+ Buat Tiket</a>
         </div>
-        <table class="tabel">
+        <div class="table-responsive">
+    <table class="tabel">
             <thead><tr><th>Kode</th><th>Kategori</th><th>Subjek</th><th>Status</th><th>Tanggal</th><th></th></tr></thead>
             <tbody>
                 @forelse ($tiket as $t)
@@ -23,7 +24,9 @@
                     <tr><td colspan="6" style="text-align:center; color:#888;">Belum ada tiket.</td></tr>
                 @endforelse
             </tbody>
-        </table>
+            </table>
+            </div>
+
         <div style="margin-top:16px;">{{ $tiket->links() }}</div>
     </div>
 @endsection

@@ -38,43 +38,142 @@
 
             <div class="grup">Lainnya</div>
             <a href="{{ route('beranda') }}" target="_blank">&#8599; Lihat Situs Publik</a>
-            <div style="padding: 10px 20px; font-size: .8rem; color: #666;">
-                Helpdesk TI<br>(021) 384-5555 ext. 200
-            </div>
+            
+        <div class="admin-sidebar-bottom">
+
+    <div class="admin-sidebar-user">
+        <span class="user-icon">&#128100;</span>
+        <span>{{ auth()->user()->nama }}</span>
+    </div>
+
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+
+        <button type="submit" class="admin-sidebar-logout">
+            Keluar
+        </button>
+    </form>
+
+        </div>
         </aside>
+
+        {{-- Overlay mobile --}}
+<div class="admin-overlay" id="adminOverlay"></div>
 
         {{-- ===== MAIN ===== --}}
         <div class="admin-main">
             <header class="admin-top">
-                <div>
-                    <strong style="font-size:1.05rem;">@yield('page-title', 'Dashboard')</strong><br>
-                    <small style="color:#999;">{{ now()->translatedFormat('l, d F Y') }}</small>
-                </div>
-                <div style="display:flex; align-items:center; gap:16px;">
-                    <div class="drop" id="notif-drop">
-                        <button style="background:none;border:none;cursor:pointer;font-size:1.2rem;position:relative;" aria-label="Notifikasi">
-                            &#128276;
-                            @if (auth()->user()->unreadNotifications->count())
-                                <span class="notif-dot">{{ auth()->user()->unreadNotifications->count() }}</span>
-                            @endif
-                        </button>
-                        <div class="drop-menu">
-                            @forelse (auth()->user()->notifications()->latest()->take(6)->get() as $n)
-                                <div class="item" style="{{ $n->read_at ? '' : 'background:#fbf1f3;' }}">
-                                    {{ $n->data['pesan'] ?? 'Notifikasi' }}<br>
-                                    <small>{{ $n->created_at->diffForHumans() }}</small>
-                                </div>
-                            @empty
-                                <div class="item">Belum ada notifikasi.</div>
-                            @endforelse
-                        </div>
+
+    {{-- Judul halaman --}}
+    <div class="admin-page-info">
+        <strong>
+            @yield('page-title', 'Dashboard')
+        </strong>
+        <br>
+        <small>
+            {{ now()->translatedFormat('l, d F Y') }}
+        </small>
+    </div>
+
+    <div class="admin-mobile-logo">
+
+    <div class="kotak">
+        BNPT
+    </div>
+
+    <div>
+        <b>PUSDATIN BNPT</b>
+        <small>Panel Administrator</small>
+    </div>
+
+    </div>
+
+    {{-- Bagian kanan --}}
+    <div class="admin-header-right">
+
+        {{-- Notifikasi --}}
+        <div class="drop" id="notif-drop">
+
+            <button
+                type="button"
+                class="notif-button"
+                aria-label="Notifikasi"
+            >
+                &#128276;
+
+                @if (auth()->user()->unreadNotifications->count())
+                    <span class="notif-dot">
+                        {{ auth()->user()->unreadNotifications->count() }}
+                    </span>
+                @endif
+            </button>
+
+            <div class="drop-menu">
+
+                @forelse (auth()->user()->notifications()->latest()->take(6)->get() as $n)
+
+                    <div
+                        class="item"
+                        style="{{ $n->read_at ? '' : 'background:#fbf1f3;' }}"
+                    >
+                        {{ $n->data['pesan'] ?? 'Notifikasi' }}
+                        <br>
+
+                        <small>
+                            {{ $n->created_at->diffForHumans() }}
+                        </small>
                     </div>
-                    <span style="font-size:.9rem;">&#128100; {{ auth()->user()->nama }} <span class="badge badge-ditolak" style="font-size:.7rem;">ADMIN</span></span>
-                    <form method="POST" action="{{ route('logout') }}">@csrf
-                        <button type="submit" class="btn-outline" style="cursor:pointer">Keluar</button>
-                    </form>
-                </div>
-            </header>
+
+                @empty
+
+                    <div class="item">
+                        Belum ada notifikasi.
+                    </div>
+
+                @endforelse
+
+            </div>
+        </div>
+
+
+        <div class="admin-user-header">
+    <span>
+        &#128100; {{ auth()->user()->nama }}
+    </span>
+
+    <span class="badge badge-ditolak">
+        ADMIN
+    </span>
+        </div>
+
+        <form
+            method="POST"
+            action="{{ route('logout') }}"
+            class="admin-logout-header"
+        >
+            @csrf
+
+            <button type="submit">
+                Keluar
+            </button>
+        </form>
+
+
+        {{-- Hamburger --}}
+        <button
+            type="button"
+            class="admin-hamburger"
+            id="adminHamburger"
+            aria-label="Menu"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+
+</header>
 
             <main class="admin-body">
                 @if (session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
@@ -86,9 +185,103 @@
 
     <script src="{{ asset('js/accessibility.js') }}"></script>
     <script>
-        document.getElementById('notif-drop').querySelector('button').addEventListener('click', function () {
-            document.getElementById('notif-drop').classList.toggle('open');
+    /* ==============================
+       NOTIFIKASI
+    ============================== */
+
+    const notifDrop = document.getElementById('notif-drop');
+
+    if (notifDrop) {
+
+        const notifButton = notifDrop.querySelector('button');
+
+        notifButton.addEventListener('click', function () {
+
+            notifDrop.classList.toggle('open');
+
         });
-    </script>
+    }
+
+
+    /* ==============================
+       HAMBURGER ADMIN
+    ============================== */
+
+    const adminHamburger =
+        document.getElementById('adminHamburger');
+
+    const adminSidebar =
+        document.querySelector('.admin-side');
+
+    const adminOverlay =
+        document.getElementById('adminOverlay');
+
+
+    adminHamburger.addEventListener('click', function () {
+
+        adminSidebar.classList.toggle('open');
+
+        adminOverlay.classList.toggle('open');
+
+
+        /* Animasi hamburger menjadi X */
+
+        this.classList.toggle('active');
+
+
+        if (adminSidebar.classList.contains('open')) {
+
+            document.body.style.overflow = 'hidden';
+
+        } else {
+
+            document.body.style.overflow = '';
+
+        }
+
+    });
+
+
+    /* ==============================
+       KLIK OVERLAY
+    ============================== */
+
+    adminOverlay.addEventListener('click', function () {
+
+        adminSidebar.classList.remove('open');
+
+        adminOverlay.classList.remove('open');
+
+        adminHamburger.classList.remove('active');
+
+        document.body.style.overflow = '';
+
+    });
+
+
+    /* ==============================
+       KLIK MENU
+    ============================== */
+
+    document.querySelectorAll('.admin-side a').forEach(function (link) {
+
+        link.addEventListener('click', function () {
+
+            if (window.innerWidth <= 768) {
+
+                adminSidebar.classList.remove('open');
+
+                adminOverlay.classList.remove('open');
+
+                adminHamburger.classList.remove('active');
+
+                document.body.style.overflow = '';
+
+            }
+
+        });
+
+    });
+</script>
 </body>
 </html>
