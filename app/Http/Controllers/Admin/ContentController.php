@@ -102,6 +102,46 @@ class ContentController extends Controller
     );
 }
 
+public function destroyMitra(ContentGroup $group, $index)
+{
+    // Cari field nama dan logo berdasarkan nomor mitra
+    $namaField = $group->fields()
+        ->where('key', $group->slug . '.nama_' . $index)
+        ->first();
+
+    $logoField = $group->fields()
+        ->where('key', $group->slug . '.logo_' . $index)
+        ->first();
+
+    // Kalau mitra tidak ditemukan
+    if (!$namaField && !$logoField) {
+        return back()->with('error', 'Mitra tidak ditemukan.');
+    }
+
+    // Hapus nama
+    if ($namaField) {
+        SiteContent::where('key', $namaField->key)->delete();
+        $namaField->delete();
+    }
+
+    // Hapus logo dan file fisiknya
+    if ($logoField) {
+        $logoPath = SiteContent::get($logoField->key);
+
+        if ($logoPath && Storage::disk('public')->exists($logoPath)) {
+            Storage::disk('public')->delete($logoPath);
+        }
+
+        SiteContent::where('key', $logoField->key)->delete();
+        $logoField->delete();
+    }
+
+    return back()->with(
+        'success',
+        'Mitra #' . $index . ' berhasil dihapus.'
+    );
+}
+
     public function update(Request $request, ContentGroup $group)
     {
         $group->load('fields');

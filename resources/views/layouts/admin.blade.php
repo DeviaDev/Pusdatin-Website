@@ -179,7 +179,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/accessibility.js') }}"></script>
     <script>
 
     const notifDrop = document.getElementById('notif-drop');

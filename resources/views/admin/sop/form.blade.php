@@ -3,7 +3,7 @@
 @section('page-title', $item->exists ? 'Edit Dokumen SOP' : 'Tambah Dokumen SOP')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/sop-admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sop-admin.css') }}?v={{ time() }}">
 @endpush
 
 @section('content')
@@ -28,9 +28,9 @@
             </select>
 
             <label>Tanggal SOP <span class="req">*</span></label>
-            <input type="date" name="published_at" value="{{ old('published_at', $item->published_at ? $item->published_at->format('Y-m-d') : date('Y-m-d')) }}" required>
-            <small style="color:#888;">Default hari ini. Anda bisa mengubahnya ke tanggal mendatang untuk penjadwalan terbit.</small>
-            @error('published_at')<div class="error-field" style="color:var(--merah); font-size:0.85rem;">{{ $message }}</div>@enderror
+<input type="date" name="published_at" value="{{ old('published_at', $item->published_at ? $item->published_at->format('Y-m-d') : date('Y-m-d')) }}" required>
+<small style="color:#888; display:block; margin-bottom:12px;">Default hari ini. Anda bisa mengubahnya ke tanggal mendatang untuk penjadwalan terbit.</small>
+@error('published_at')<div class="error-field" style="color:var(--merah); font-size:0.85rem;">{{ $message }}</div>@enderror
 
             <label>Deskripsi Singkat</label>
             <textarea name="deskripsi" rows="4" placeholder="Deskripsi yang tampil di halaman publik...">{{ old('deskripsi', $item->deskripsi) }}</textarea>

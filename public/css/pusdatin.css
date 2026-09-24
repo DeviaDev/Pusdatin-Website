@@ -1125,6 +1125,91 @@ select.select-placeholder option {
 }
 
 /* =========================================
+   STYLE STACK FORM & INPUT TIKET PORTAL
+========================================= */
+
+/* Label Form */
+form.stack label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+    margin-top: 12px;
+}
+
+form.stack label .req {
+    color: var(--merah);
+}
+
+/* Base Style Input, Select, Textarea */
+form.stack input[type="text"],
+form.stack input[type="email"],
+form.stack input[type="number"],
+form.stack input[type="password"],
+form.stack input[type="file"],
+form.stack select,
+form.stack textarea {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+/* Hover & Focus State */
+form.stack input[type="text"]:focus,
+form.stack input[type="email"]:focus,
+form.stack input[type="number"]:focus,
+form.stack input[type="password"]:focus,
+form.stack select:focus,
+form.stack textarea:focus {
+    border-color: var(--merah);
+    box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.15);
+}
+
+/* Radio Button Options */
+form.stack label.opt-radio {
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 400 !important;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+form.stack input[type="radio"] {
+    accent-color: var(--merah);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Custom File Input styling */
+form.stack input[type="file"] {
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 0.85rem;
+}
+
+/* Placeholder Styling untuk Select */
+select.select-placeholder {
+    color: #888;
+}
+select.select-placeholder.has-value {
+    color: #333;
+}
+
+/* =========================================
    LAYOUT ADMIN
 ========================================= */
 

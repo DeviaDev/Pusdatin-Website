@@ -6,6 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Portal Pegawai') — Pusdatin BNPT</title>
     <link rel="stylesheet" href="{{ asset('css/pusdatin.css') }}">
+
+    @stack('styles')
 </head>
 <body>
     <div class="topbar">
@@ -134,7 +136,6 @@
         </main>
     </div>
 
-    <script src="{{ asset('js/accessibility.js') }}"></script>
     <script>
         document.querySelectorAll('.drop').forEach(function (dropEl) {
             const btn = dropEl.querySelector('button');
