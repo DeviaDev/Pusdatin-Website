@@ -3,7 +3,6 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/beranda-pusdatin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/beranda-pusdatin.css') }}">
 @endpush
 
 @php
@@ -14,6 +13,7 @@
 @endphp
 
 @section('content')
+    {{-- HERO SECTION --}}
     <section class="hero">
         <h1>{!! nl2br(e(content('beranda.judul', "Pusat Data dan Teknologi Informasi BNPT"))) !!}</h1>
         <p>{{ content('beranda.subjudul', 'Mendorong efisiensi dan inovasi layanan teknologi informasi untuk mendukung implementasi penanggulangan terorisme yang komprehensif dan terintegrasi.') }}</p>
@@ -43,6 +43,9 @@
             </div>
         </div>
     </section>
+
+    {{-- LAYANAN UTAMA SECTION --}}
+    <section class="konten">
         <div class="judul-section">
             <span class="sub-judul">AKSES CEPAT</span>
             <h2>Layanan Utama Pusdatin</h2>
@@ -91,6 +94,7 @@
         </div>
     </section>
 
+    {{-- INFORMASI / BERITA SECTION --}}
     @if ($pengumuman->count())
     <section class="konten reveal-on-scroll" style="background: var(--abu); padding: 36px 5%;">
         <div class="judul-section">
@@ -106,10 +110,8 @@
             <div class="grid-berita" id="beritaContainer">
                 @foreach ($pengumuman as $item)
                     <a href="{{ route('informasi.show', $item) }}" class="kartu-berita">
-                        <div class="berita-imagennbhbbbc              "
-                            style="background-image:url('{{ $item->foto ? asset('storage/'.$item->foto) : asset('images/default-news.jpg') }}');
-                                background-size:cover;
-                                background-position:center;">
+                        <div class="berita-image"
+                            style="background-image:url('{{ $item->foto ? asset('storage/'.$item->foto) : asset('images/default-news.jpg') }}');">
                         </div>
                         <div class="glass-overlay">
                             <div class="glass-header">
@@ -142,46 +144,37 @@
     </section>
     @endif
 
-  <section class="konten mitra-section">
+    {{-- MITRA SECTION --}}
+    <section class="konten mitra-section">
+        <div class="judul-section">
+            <span class="sub-judul">KERJA SAMA</span>
+            <h2>Mitra Pusdatin</h2>
+        </div>
 
-    <div class="judul-section">
-        <span class="sub-judul">KERJA SAMA</span>
-        <h2>Mitra Pusdatin</h2>
-    </div>
+        <div class="mitra-grid">
+            @foreach ($mitraFields as $logoField)
+                @php
+                    $nomor = str_replace('mitra.logo_', '', $logoField->key);
+                    $nama = content('mitra.nama_' . $nomor);
+                    $logo = content($logoField->key);
+                @endphp
 
-    <div class="mitra-grid">
+                @if ($logo)
+                    <div class="mitra-item">
+                        <img src="{{ asset('storage/' . $logo) }}"
+                             class="mitra-logo"
+                             alt="{{ $nama ?: 'Mitra Pusdatin' }}">
 
-        @foreach ($mitraFields as $logoField)
-
-            @php
-                $nomor = str_replace('mitra.logo_', '', $logoField->key);
-                $nama = content('mitra.nama_' . $nomor);
-                $logo = content($logoField->key);
-            @endphp
-
-            @if ($logo)
-
-                <div class="mitra-item">
-
-                    <img src="{{ asset('storage/' . $logo) }}"
-                         class="mitra-logo"
-                         alt="{{ $nama ?: 'Mitra Pusdatin' }}">
-
-                    @if ($nama)
-                        <span class="mitra-nama">
-                            {{ $nama }}
-                        </span>
-                    @endif
-
-                </div>
-
-            @endif
-
-        @endforeach
-
-    </div>
-
-</section>
+                        @if ($nama)
+                            <span class="mitra-nama">
+                                {{ $nama }}
+                            </span>
+                        @endif
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    </section>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
