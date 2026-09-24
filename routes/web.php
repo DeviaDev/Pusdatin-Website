@@ -81,6 +81,9 @@ Route::prefix('konten')->name('konten.')->group(function () {
     Route::post('/{group:slug}/mitra', [ContentController::class, 'storeMitra'])
         ->name('mitra.store');
 
+    Route::delete('/{group:slug}/mitra/{index}', [ContentController::class, 'destroyMitra'])
+    ->name('mitra.destroy');
+
     Route::delete('/field/{field}', [ContentController::class, 'destroyField'])
         ->name('field.destroy');
 });

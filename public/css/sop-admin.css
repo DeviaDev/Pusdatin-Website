@@ -2,6 +2,45 @@
    STYLE ADMIN SOP DOKUMEN (sop-admin.css)
 ========================================= */
 
+/* Paksa ukuran input date penuh & tampilkan keterangan di bawahnya */
+form.stack input[type="date"] {
+    display: block !important;
+    width: 100% !important;
+    padding: 10px 14px !important;
+    font-family: inherit !important;
+    font-size: 0.9rem !important;
+    color: #333 !important;
+    background-color: #fff !important;
+    border: 1px solid #ccc !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    margin-bottom: 6px !important;
+}
+
+form.stack input[type="date"]:focus {
+    border-color: var(--merah, #c8102e) !important;
+    box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.15) !important;
+}
+
+/* Pastikan elemen small di bawah tanggal langsung turun ke baris baru */
+form.stack input[type="date"] + small {
+    display: block !important;
+    margin-top: 4px !important;
+    margin-bottom: 12px !important;
+}
+
+/* Custom warna ikon kalender bawaan browser agar rapi */
+form.stack input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+form.stack input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* Keterangan tombol aksi dan tautan tabel SOP */
 .aksi-tabel {
     display: flex;
     align-items: center;
