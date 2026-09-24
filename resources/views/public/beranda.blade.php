@@ -1,11 +1,18 @@
 @extends('layouts.public')
 @section('title', 'Beranda')
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/beranda-pusdatin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/beranda-pusdatin.css') }}">
+@endpush
+
 @php
     $mitraFields = \App\Models\ContentGroupField::where('key', 'like', 'mitra.logo_%')
         ->where('type', 'image')
         ->orderBy('urutan')
         ->get();
 @endphp
+
 @section('content')
     <section class="hero">
         <h1>{!! nl2br(e(content('beranda.judul', "Pusat Data dan Teknologi Informasi BNPT"))) !!}</h1>
@@ -14,22 +21,33 @@
             <a href="{{ route('login') }}" class="btn-merah">Layanan Pengaduan</a>
             <a href="{{ route('sop') }}" class="btn-outline">Telusuri Pusdatin</a>
         </div>
-        <div class="stats">
-            <div><b>142+</b><small>Sistem dan Aplikasi</small></div>
-            <div><b>99.7%</b><small>UPTIME SERVER</small></div>
-            <div><b>2.4 TB</b><small>KAPASITAS STORAGE</small></div>
-            <div><b>1,200+</b><small>USER AKTIF</small></div>
+
+        <div class="marquee-running-banner">
+            <div class="marquee-track">
+                <div class="marquee-content">
+                    <span>DATA TERINTEGRASI</span><span class="pembatas">◆</span>
+                    <span>INFORMASI TERKINI</span><span class="pembatas">◆</span>
+                    <span>LAYANAN DIGITAL</span><span class="pembatas">◆</span>
+                    <span>TEKNOLOGI INFORMASI</span><span class="pembatas">◆</span>
+                    <span>TRANSFORMASI DIGITAL</span><span class="pembatas">◆</span>
+                    <span>PUSAT DATA DAN INFORMASI</span><span class="pembatas">◆</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    <span>DATA TERINTEGRASI</span><span class="pembatas">◆</span>
+                    <span>INFORMASI TERKINI</span><span class="pembatas">◆</span>
+                    <span>LAYANAN DIGITAL</span><span class="pembatas">◆</span>
+                    <span>TEKNOLOGI INFORMASI</span><span class="pembatas">◆</span>
+                    <span>TRANSFORMASI DIGITAL</span><span class="pembatas">◆</span>
+                    <span>PUSAT DATA DAN INFORMASI</span><span class="pembatas">◆</span>
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- Section Layanan Utama (Judul langsung tampil dari awal) -->
-    <section class="konten">
         <div class="judul-section">
             <span class="sub-judul">AKSES CEPAT</span>
             <h2>Layanan Utama Pusdatin</h2>
         </div>
-        
-        <!-- Animasi Scroll HANYA untuk Kartu-Kartu Layanan -->
+
         <div class="grid-layanan reveal-on-scroll">
             <div class="kartu-layanan">
                 <div class="ikon-wrap">
@@ -73,7 +91,6 @@
         </div>
     </section>
 
-    <!-- Section Berita & Informasi -->
     @if ($pengumuman->count())
     <section class="konten reveal-on-scroll" style="background: var(--abu); padding: 36px 5%;">
         <div class="judul-section">
@@ -89,7 +106,7 @@
             <div class="grid-berita" id="beritaContainer">
                 @foreach ($pengumuman as $item)
                     <a href="{{ route('informasi.show', $item) }}" class="kartu-berita">
-                        <div class="berita-thumb"
+                        <div class="berita-imagennbhbbbc              "
                             style="background-image:url('{{ $item->foto ? asset('storage/'.$item->foto) : asset('images/default-news.jpg') }}');
                                 background-size:cover;
                                 background-position:center;">
@@ -166,14 +183,12 @@
 
 </section>
 
-    <!-- Script Pendeteksi Scroll & Horizontal Scroll Button -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Script Animasi Scroll dengan Trigger Lebih Dalam
             const observerOptions = {
                 root: null,
-                rootMargin: '0px 0px -80px 0px', /* Trigger baru aktif saat elemen masuk 80px dari bawah layar */
-                threshold: 0.25 /* Membutuhkan 25% area elemen terlihat baru animasi berjalan */
+                rootMargin: '0px 0px -80px 0px',
+                threshold: 0.25 
             };
 
             const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -189,7 +204,6 @@
                 revealObserver.observe(section);
             });
 
-            // Script Horizontal Scroll Berita
             const container = document.getElementById('beritaContainer');
             const btnLeft = document.getElementById('btnScrollLeft');
             const btnRight = document.getElementById('btnScrollRight');

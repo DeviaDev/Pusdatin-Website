@@ -1,0 +1,78 @@
+/* =========================================
+   STYLE KELOLA INFORMASI / PENGUMUMAN ADMIN
+========================================= */
+.aksi-tabel {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 6px;
+}
+
+.btn-aksi {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-detail {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.btn-detail:hover {
+    background: #0284c7;
+    color: #ffffff;
+}
+
+.btn-edit {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.btn-edit:hover {
+    background: #d97706;
+    color: #ffffff;
+}
+
+.btn-hapus {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.btn-hapus:hover {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.detail-admin-wrap {
+    background: #ffffff;
+    padding: 10px;
+}
+
+.btn-kembali-admin {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-kembali-admin:hover {
+    background: #e2e8f0;
+    color: #0f172a !important;
+    border-color: #94a3b8;
+}
+

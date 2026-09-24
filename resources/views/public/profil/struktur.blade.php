@@ -21,16 +21,13 @@
 
 <section class="konten-profil-wrap reveal-tab">
     <div class="container-profil layout-pusat">
-        <!-- Header Rata Tengah -->
         <div class="header-tengah">
             <span class="sub-judul-merah">KEPEMIMPINAN & ORGANISASI</span>
             <h2>Struktur Organisasi Pusdatin</h2>
         </div>
 
-        <!-- Bagan Tree Hierarchy (Lengkap dengan Garis & 2 Level ke Bawah) -->
         <div class="tree-bagan-wrapper">
             
-            <!-- LEVEL 1: PIMPINAN UTAMA -->
             <div class="level-pimpinan">
                 <div class="node-box pimpinan">
                     <span class="tag-jabatan-gelap">PIMPINAN</span>
@@ -39,13 +36,10 @@
                 </div>
             </div>
 
-            <!-- Garis Vertikal Utama dari Pimpinan -->
             <div class="garis-v-utama"></div>
 
-            <!-- Cabang 3 Kolom Utama -->
             <div class="tree-cabang-tiga">
                 
-                <!-- KOLOM 1: BIDANG PENGELOLAAN DATA -->
                 <div class="kolom-cabang">
                     <div class="node-box kabid">
                         <span class="tag-jabatan-merah">Kepala Bidang</span>
@@ -55,7 +49,6 @@
                     
                     <div class="garis-v-sub"></div>
 
-                    <!-- LEVEL 2 KE BAWAH: Tim Kerja Sub-Bidang -->
                     <div class="node-box sub-tim">
                         <span class="tag-sub">TIM KERJA</span>
                         <h5>Subbid Tata Kelola & Integrasi Data</h5>
@@ -63,14 +56,12 @@
 
                     <div class="garis-v-sub"></div>
 
-                    <!-- LEVEL 3 KE BAWAH: Staf/Pelaksana Fungsional -->
                     <div class="node-box staf-pelaksana">
                         <span class="tag-staf">PELAKSANA / FUNGSIONAL</span>
                         <p>Analis Data & Informasi</p>
                     </div>
                 </div>
 
-                <!-- KOLOM 2: BIDANG SISTEM INFORMASI -->
                 <div class="kolom-cabang">
                     <div class="node-box kabid">
                         <span class="tag-jabatan-merah">Kepala Bidang</span>
@@ -80,7 +71,6 @@
 
                     <div class="garis-v-sub"></div>
 
-                    <!-- LEVEL 2 KE BAWAH: Tim Kerja Sub-Bidang -->
                     <div class="node-box sub-tim">
                         <span class="tag-sub">TIM KERJA</span>
                         <h5>Subbid Infrastruktur & Jaringan</h5>
@@ -88,14 +78,12 @@
 
                     <div class="garis-v-sub"></div>
 
-                    <!-- LEVEL 3 KE BAWAH: Staf/Pelaksana Fungsional -->
                     <div class="node-box staf-pelaksana">
                         <span class="tag-staf">PELAKSANA / FUNGSIONAL</span>
                         <p>Pranata Komputer & Siber</p>
                     </div>
                 </div>
 
-                <!-- KOLOM 3: BIDANG STATISTIK & ANALISIS -->
                 <div class="kolom-cabang">
                     <div class="node-box kabid">
                         <span class="tag-jabatan-merah">Kepala Bidang</span>
@@ -105,7 +93,6 @@
 
                     <div class="garis-v-sub"></div>
 
-                    <!-- LEVEL 2 KE BAWAH: Tim Kerja Sub-Bidang -->
                     <div class="node-box sub-tim">
                         <span class="tag-sub">TIM KERJA</span>
                         <h5>Subbid Diseminasi & Pelaporan</h5>
@@ -113,7 +100,6 @@
 
                     <div class="garis-v-sub"></div>
 
-                    <!-- LEVEL 3 KE BAWAH: Staf/Pelaksana Fungsional -->
                     <div class="node-box staf-pelaksana">
                         <span class="tag-staf">PELAKSANA / FUNGSIONAL</span>
                         <p>Statistisi & Analisis Kebijakan</p>
@@ -123,7 +109,6 @@
             </div>
         </div>
 
-        <!-- Personel / Ringkasan Pejabat -->
         <div class="grid-personel-pejabat">
             <div class="card-personel">
                 <div class="avatar-dummy">

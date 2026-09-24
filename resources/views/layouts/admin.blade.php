@@ -6,13 +6,18 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Panel Admin') — Pusdatin BNPT</title>
     <link rel="stylesheet" href="{{ asset('css/pusdatin.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    @stack('styles')
 </head>
 <body>
     <div class="admin-wrap">
         {{-- ===== SIDEBAR ADMIN ===== --}}
         <aside class="admin-side">
             <div class="admin-logo">
-                <div class="kotak">BNPT</div>
+                <div class="kotak">
+                    <img src="{{ asset('images/logo-bnpt.png') }}" alt="Logo BNPT">
+                </div>
                 <div>
                     <b style="color:#fff;">PUSDATIN BNPT</b><br>
                     <small style="color:#888;">Panel Administrator</small>
@@ -57,14 +62,10 @@
         </div>
         </aside>
 
-        {{-- Overlay mobile --}}
 <div class="admin-overlay" id="adminOverlay"></div>
-
-        {{-- ===== MAIN ===== --}}
         <div class="admin-main">
             <header class="admin-top">
 
-    {{-- Judul halaman --}}
     <div class="admin-page-info">
         <strong>
             @yield('page-title', 'Dashboard')
@@ -76,22 +77,17 @@
     </div>
 
     <div class="admin-mobile-logo">
-
-    <div class="kotak">
-        BNPT
+        <div class="kotak">
+            <img src="{{ asset('images/logo-bnpt.png') }}" alt="Logo BNPT">
+        </div>
+        <div>
+            <b>PUSDATIN BNPT</b>
+            <small>Panel Administrator</small>
+        </div>
     </div>
 
-    <div>
-        <b>PUSDATIN BNPT</b>
-        <small>Panel Administrator</small>
-    </div>
-
-    </div>
-
-    {{-- Bagian kanan --}}
     <div class="admin-header-right">
 
-        {{-- Notifikasi --}}
         <div class="drop" id="notif-drop">
 
             <button
@@ -185,9 +181,6 @@
 
     <script src="{{ asset('js/accessibility.js') }}"></script>
     <script>
-    /* ==============================
-       NOTIFIKASI
-    ============================== */
 
     const notifDrop = document.getElementById('notif-drop');
 
@@ -201,11 +194,6 @@
 
         });
     }
-
-
-    /* ==============================
-       HAMBURGER ADMIN
-    ============================== */
 
     const adminHamburger =
         document.getElementById('adminHamburger');
@@ -223,9 +211,6 @@
 
         adminOverlay.classList.toggle('open');
 
-
-        /* Animasi hamburger menjadi X */
-
         this.classList.toggle('active');
 
 
@@ -241,11 +226,6 @@
 
     });
 
-
-    /* ==============================
-       KLIK OVERLAY
-    ============================== */
-
     adminOverlay.addEventListener('click', function () {
 
         adminSidebar.classList.remove('open');
@@ -257,11 +237,6 @@
         document.body.style.overflow = '';
 
     });
-
-
-    /* ==============================
-       KLIK MENU
-    ============================== */
 
     document.querySelectorAll('.admin-side a').forEach(function (link) {
 

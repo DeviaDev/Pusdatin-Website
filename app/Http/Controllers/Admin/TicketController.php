@@ -55,10 +55,8 @@ class TicketController extends Controller
             'changed_by' => Auth::id(),
         ]);
 
-        // Sinkron status ke Google Sheets
         app(GoogleSheetService::class)->updateStatus($tiket->fresh());
 
-        // Notifikasi ke pemilik tiket
         if ($oldStatus !== $request->status) {
             $tiket->user->notify(new TicketStatusUpdated($tiket->fresh(), $request->catatan ?? ''));
         }

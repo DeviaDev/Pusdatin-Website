@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Pusdatin BNPT') — Pusat Data dan Teknologi Informasi</title>
+
     <link rel="stylesheet" href="{{ asset('css/pusdatin.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    @stack('styles')
 </head>
 <body>
     <div class="topbar">
@@ -16,14 +19,15 @@
 <header class="site">
 
     <a href="{{ route('beranda') }}" class="logo">
-        <div class="kotak">BNPT</div>
+        <div class="kotak">
+            <img src="{{ asset('images/logo-bnpt.png') }}" alt="Logo BNPT">
+        </div>
         <div class="nama">
             PUSDATIN BNPT
             <small>Pusat Data dan Informasi</small>
         </div>
     </a>
 
-    {{-- Tombol hamburger --}}
     <button type="button"
         class="menu-toggle"
         id="menuToggle"
@@ -31,7 +35,6 @@
     ☰
 </button>
 
-    {{-- Menu navigasi --}}
     <div class="header-menu" id="headerMenu">
 
         <nav class="main">
@@ -113,9 +116,6 @@
             <span><a href="#" style="display:inline">Kebijakan Privasi</a> &middot; <a href="#" style="display:inline">Syarat &amp; Ketentuan</a> &middot; <a href="#" style="display:inline">Peta Situs</a></span>
         </div>
     </footer>
-
-    <script src="{{ asset('js/accessibility.js') }}"></script>
-<script src="{{ asset('js/chatbot.js') }}"></script>
 
 <script>
     const menuToggle = document.getElementById('menuToggle');

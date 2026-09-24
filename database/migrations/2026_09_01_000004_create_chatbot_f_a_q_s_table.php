@@ -9,7 +9,7 @@ return new class extends Migration {
         Schema::create('chatbot_faqs', function (Blueprint $table) {
             $table->id();
             $table->string('topik');
-            $table->text('keywords');     // dipisah koma: "reset,password,lupa"
+            $table->text('keywords');     
             $table->text('jawaban');
             $table->timestamps();
         });

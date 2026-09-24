@@ -50,24 +50,27 @@ class PublicController extends Controller
 
     public function sop()
     {
-        // Dokumen SOP diambil dari database — dikelola admin
-        $sopList = SopDocument::active()->get();
+        $sopList = SopDocument::active()
+            ->whereDate('published_at', '<=', now()) 
+            ->latest('published_at')
+            ->get();
+
         return view('public.sop', compact('sopList'));
     }
 
     public function sopDownload(SopDocument $sop)
-{
-    abort_unless(
-        $sop->is_active && $sop->file_path,
-        404,
-        'Dokumen tidak tersedia.'
-    );
+    {
+        abort_unless(
+            $sop->is_active && $sop->file_path && ($sop->published_at && $sop->published_at->isPast() || $sop->published_at?->isToday()),
+            404,
+            'Dokumen tidak tersedia.'
+        );
 
-    $path = Storage::disk('public')->path($sop->file_path);
+        $path = Storage::disk('public')->path($sop->file_path);
 
-    return response()->download(
-        $path,
-        $sop->file_name ?? $sop->kode . '.pdf'
-    );
-}
+        return response()->download(
+            $path,
+            $sop->file_name ?? $sop->kode . '.pdf'
+        );
+    }
 }

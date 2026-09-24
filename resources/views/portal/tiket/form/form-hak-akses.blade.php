@@ -5,7 +5,6 @@
 <div class="panel">
     <a href="{{ route('portal.tiket.create') }}" style="color:var(--merah); text-decoration:none; font-size:.9rem; display:inline-block; margin-bottom:16px;">← Kembali Pilih Kategori</a>
 
-    <!-- Header Form dengan Ikon Hak Akses -->
     <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
         <div class="ikon-wrap" style="width:56px; height:56px; background:#fdf2f4; color:var(--merah); border-radius:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -19,8 +18,6 @@
     <form method="POST" action="{{ route('portal.tiket.store', 'hak_akses') }}" enctype="multipart/form-data" class="stack">
         @csrf
         <input type="hidden" name="subjek" value="Permohonan Layanan Hak Akses">
-
-        <!-- Baris 1: Informasi Pelapor -->
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
             <div>
                 <label>Nama Lengkap <span class="req">*</span></label>
@@ -36,15 +33,25 @@
             </div>
         </div>
 
-        <!-- Baris 2: Lokasi & Kontak -->
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
             <div>
                 <label>Gedung <span class="req">*</span></label>
-                <select name="detail[gedung]" required>
-                    <option value="">Pilih Gedung</option>
-                    <option value="Gedung Utama">Gedung Utama</option>
-                    <option value="Gedung B">Gedung B</option>
-                    <option value="Gedung C">Gedung C</option>
+                <select name="detail[gedung]" required class="select-placeholder" onchange="this.classList.toggle('has-value', !!this.value)">v
+                    <option value="" disabled selected hidden>Pilih Gedung</option>
+                    <option value="Gedung Utama" style="color: #333;">Biwara</option>
+                    <option value="Gedung B" style="color: #333;">Baladika</option>
+                    <option value="Gedung C" style="color: #333;">Pasopati</option>
+                    <option value="Gedung Utama" style="color: #333;">Nenggala</option>
+                    <option value="Gedung B" style="color: #333;">Rumga</option>
+                    <option value="Gedung C" style="color: #333;">Lapas</option>
+                    <option value="Gedung Utama" style="color: #333;">BLK</option>
+                    <option value="Gedung B" style="color: #333;">Asrama Lepas</option>
+                    <option value="Gedung C" style="color: #333;">Museum</option>
+                    <option value="Gedung Utama" style="color: #333;">Data Center</option>
+                    <option value="Gedung B" style="color: #333;">Wisman</option>
+                    <option value="Gedung C" style="color: #333;">Hayam Wuruk</option>
+                    <option value="Gedung B" style="color: #333;">Royal</option>
+                    <option value="Gedung C" style="color: #333;">Tomang</option>
                 </select>
             </div>
             <div>
@@ -57,7 +64,6 @@
             </div>
         </div>
 
-        <!-- Baris 3: BMN -->
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
             <div>
                 <label>Nomor BMN <span class="req">*</span></label>
@@ -65,13 +71,13 @@
             </div>
         </div>
 
-        <!-- Kartu Khusus Detail Hak Akses -->
         <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px; margin-top:20px; background:#fafafa;">
+            <div style="margin-bottom:16px;">
+                <label>Subjek Pengaduan / Permohonan <span class="req">*</span></label>
+                <input type="text" name="subjek" value="{{ old('subjek') }}" placeholder="Tuliskan Subjek Pengaduan / Permohonan" required style="width:100%; box-sizing:border-box;">
+            </div>
             
-            <!-- Container Utama: Grid 2 Kolom -->
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px 24px; align-items:start;">
-                
-                <!-- BARIS 1 (Kategori Akses & Waktu Akses) -->
                 <div>
                     <label style="margin:0 0 2px;">Kategori Akses <span class="req">*</span></label>
                     <small style="display:block; color:#666; margin-bottom:4px;">info lengkap : <a href="https://drive.google.com/file/d/1E4ijEDI25E-oW2KT6PDUoEHr5Q1HtYqG/view" target="_blank" rel="noopener noreferrer" style="color:var(--merah); text-decoration:underline; font-weight:600;">SOP HAK AKSES</a></small>
@@ -104,7 +110,6 @@
                     </div>
                 </div>
 
-                <!-- BARIS 2 (Kategori Pemohon & Durasi Akses) -->
                 <div>
                     <label style="margin:0 0 4px;">Kategori Pemohon <span class="req">*</span></label>
                     <div style="display:flex; gap:20px; height:40px; align-items:center;">
@@ -132,19 +137,20 @@
                     </div>
                 </div>
 
-                <!-- BARIS 3 (Tipe Akses & Keterangan) -->
                 <div style="grid-column: span 2;">
                     <label style="margin:0 0 2px;">Tipe Akses <span class="req">*</span></label>
                     <small style="display:block; color:#666; margin-bottom:4px;">Untuk Akses Aplikasi tuliskan spesifik Nama Aplikasi di kolom lainnya</small>
                     
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start;">
                         <div>
-                            <select name="detail[tipe_akses]" id="tipe_akses_select" required style="width:100%; height:40px; box-sizing:border-box;">
-                                <option value="">Pilih Tipe Akses</option>
-                                <option value="VPN">VPN</option>
-                                <option value="Network / Database">Network / Database</option>
+                            <select name="detail[tipe_akses]" id="tipe_akses_select" required class="select-placeholder" onchange="this.classList.toggle('has-value', !!this.value)" style="width:100%; height:40px; box-sizing:border-box;">
+                                <option value="" disabled selected hidden>Pilih Tipe Akses</option>
+                                <option value="Network">Network</option>
+                                <option value="Database">Database</option>
                                 <option value="Internet">Internet</option>
-                                <option value="Akses Fisik Ruang Server">Akses Fisik Ruang Server</option>
+                                <option value="VPN">VPN</option>
+                                <option value="Kantor">Kantor</option>
+                                <option value="Pusat Data">Pusat Data</option>
                                 <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
@@ -154,7 +160,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- BARIS 4 (Upload File FPA di Kolom 1 & SPMK di Kolom 2) -->
+
                 <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
                     <div>
                         <label style="margin:0 0 2px;">Form Permohonan Akses <span class="req">*</span></label>
@@ -180,7 +186,6 @@
             </div>
         </div>
 
-        <!-- CSS Reset Khusus Radio Button -->
         <style>
             form.stack label.opt-radio {
                 margin: 0 !important;

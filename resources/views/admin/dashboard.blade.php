@@ -6,9 +6,6 @@
 
 @section('content')
 
-    {{-- ==============================
-         RINGKASAN
-    ============================== --}}
     <div class="ringkasan">
 
         <div class="kartu">
@@ -83,10 +80,6 @@
 
     </div>
 
-
-    {{-- ==============================
-         TIKET TERBARU
-    ============================== --}}
     <div class="panel">
 
         <div class="dashboard-panel-header">
@@ -100,8 +93,6 @@
             </a>
         </div>
 
-
-        {{-- Wrapper supaya yang scroll hanya tabel --}}
         <div class="dashboard-table-wrapper">
 
             <table class="tabel">
@@ -184,10 +175,6 @@
 
     </div>
 
-
-    {{-- ==============================
-         KELOLA WEBSITE & SOP
-    ============================== --}}
     <div class="dash-grid">
 
         {{-- Kelola Konten --}}

@@ -1,0 +1,107 @@
+/* ==========================================================================
+   HALAMAN LOGIN / MASUK PORTAL (login.css)
+   ========================================================================== */
+
+.login-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 65px 20px 85px; 
+}
+
+.login-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 36px 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.login-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--hitam, #1a1a1a);
+    margin-bottom: 6px;
+}
+
+.login-card .sub-deskripsi {
+    color: #666666;
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.login-form .form-group {
+    margin-bottom: 18px;
+}
+
+.login-form label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 6px;
+    color: #333333;
+}
+
+.login-form label .req {
+    color: var(--merah, #c8102e);
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 0.92rem;
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    border-color: var(--merah, #c8102e);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.15);
+}
+
+.login-remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: #444444;
+    margin-top: 14px;
+    margin-bottom: 22px;
+    cursor: pointer;
+}
+
+.login-remember input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--merah, #c8102e);
+}
+
+.btn-login-submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.login-footer-text {
+    font-size: 0.85rem;
+    margin-top: 20px;
+    color: #555555;
+    text-align: left;
+}
+
+.login-footer-text a {
+    color: var(--merah, #c8102e);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-footer-text a:hover {
+    text-decoration: underline;
+}

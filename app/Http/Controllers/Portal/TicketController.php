@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
 {
-    /** Form tiap kategori punya field berbeda. */
     private const FORM_FIELDS = [
         'hardware' => [
             'jenis_perangkat' => ['label' => 'Jenis Perangkat', 'type' => 'select', 'options' => ['Komputer', 'Laptop', 'Printer', 'Scanner', 'Monitor', 'Lainnya'], 'required' => true],
@@ -55,15 +54,12 @@ class TicketController extends Controller
 
     public function create(string $kategori = null)
     {
-        // Jika parameter kategori belum dipilih/kosong, tampilkan halaman pilih kategori
         if (! $kategori) {
             return view('portal.tiket.pilih-kategori');
         }
 
-        // Pastikan kategori yang diakses valid
         abort_unless(isset(self::FORM_FIELDS[$kategori]), 404);
 
-        // Pemetaan kategori ke file Blade form masing-masing di folder portal/tiket/form/
         $views = [
             'hardware'  => 'portal.tiket.form.form-hardware',
             'software'  => 'portal.tiket.form.form-software',
@@ -81,13 +77,13 @@ class TicketController extends Controller
 
     public function store(Request $request, string $kategori)
     {
-        // Validasi input (lampiran_nodin dibuat opsional/nullable)
+
         $request->validate([
             'subjek'         => 'nullable|string|max:150',
             'lampiran_nodin' => 'nullable|file|mimes:pdf,png,jpg,jpeg|max:5120',
             'lampiran_fpa'   => 'nullable|file|mimes:pdf,png,jpg,jpeg|max:5120',
             'lampiran_spmk'  => 'nullable|file|mimes:pdf,png,jpg,jpeg|max:5120',
-            'lampiran'       => 'nullable|file|mimes:pdf,png,jpg,jpeg|max:5120',
+            'lampiran'       => ($kategori === 'email' ? 'nullable' : 'required') . '|file|mimes:pdf,png,jpg,jpeg|max:5120',
             'detail'         => 'required|array',
         ]);
 
@@ -99,7 +95,6 @@ class TicketController extends Controller
             $subjek = $request->input('subjek') ?? 'Permohonan ' . Ticket::KATEGORI[$kategori];
             $detailData = $request->input('detail');
 
-            // 1. OTO-GABUNG JAWABAN "Lainnya" & HAPUS FIELD PENDUKUNGNYA
             foreach ($detailData as $key => $value) {
                 if ($value === 'Lainnya') {
                     $suffixes = ['_lain', '_keterangan', ' Lain'];
@@ -114,14 +109,12 @@ class TicketController extends Controller
                 }
             }
 
-            // Hapus field pendukung *_lain / *_keterangan yang nilainya kosong
             foreach ($detailData as $key => $val) {
                 if ((str_contains($key, '_lain') || str_contains($key, '_keterangan')) && empty($val)) {
                     unset($detailData[$key]);
                 }
             }
 
-            // 2. Simpan Tiket Utama
             $ticket = Ticket::create([
                 'kode'     => $kode,
                 'user_id'  => Auth::id(),
@@ -131,7 +124,6 @@ class TicketController extends Controller
                 'status'   => 'pending',
             ]);
 
-            // 3. MAP LABEL INPUT FILE UNTUK SETIAP FORM
             $drive = app(GoogleDriveService::class);
             $fileLabels = [
                 'lampiran_nodin' => ['label' => 'File Nodin', 'folder' => 'nodin'],
@@ -148,13 +140,10 @@ class TicketController extends Controller
                     $file = $request->file($inputName);
                     $originalName = $file->getClientOriginalName();
 
-                    // Buat Struktur Folder Rapi: tickets/{kategori}/{folder_jenis}/{kode_tiket}/
                     $folderPath = "tickets/{$kategori}/{$info['folder']}/{$ticket->kode}";
                     
-                    // Simpan File ke Storage Lokal
                     $localPath = $file->storeAs($folderPath, $originalName, 'local');
 
-                    // Upload ke Google Drive
                     $driveResult = $drive->upload($file, $ticket->kode . '-' . $inputName);
 
                     if (!$ticket->drive_file_link && !$ticket->local_file_path) {
@@ -171,7 +160,6 @@ class TicketController extends Controller
                         'local_path' => $localPath,
                     ];
                 } else {
-                    // Khusus untuk email, jika Screenshot MyASN tidak diisi, catat '-' agar tetap muncul di detail
                     if ($kategori === 'email' && $inputName === 'lampiran') {
                         $detailData['files_uploaded'][$info['label']] = [
                             'file_name'  => null,
@@ -182,12 +170,10 @@ class TicketController extends Controller
                 }
             }
 
-            // Update detail jika ada data file
             if (isset($detailData['files_uploaded'])) {
                 $ticket->update(['detail' => $detailData]);
             }
 
-            // 4. Catat Riwayat Status Awal
             TicketStatusHistory::create([
                 'ticket_id'  => $ticket->id,
                 'status'     => 'pending',
@@ -195,7 +181,6 @@ class TicketController extends Controller
                 'changed_by' => Auth::id(),
             ]);
 
-            // 5. Sinkronisasi Google Sheets
             $row = app(GoogleSheetService::class)->appendTicket($ticket->fresh('user'));
             if (is_string($row) && preg_match('/!A(\d+)$/', $row, $m)) {
                 $ticket->update(['sheet_row' => (int) $m[1]]);
@@ -210,10 +195,8 @@ class TicketController extends Controller
 
     public function downloadLocal(Request $request, Ticket $tiket)
     {
-        // Pastikan hanya pemilik tiket atau admin yang bisa mengunduh
         abort_unless($tiket->user_id === Auth::id() || Auth::user()->isAdmin(), 403);
 
-        // Ambil path spesifik dari query string (jika dikirim), jika tidak pakai default
         $filePath = $request->query('path', $tiket->local_file_path);
 
         if (!$filePath || !\Illuminate\Support\Facades\Storage::disk('local')->exists($filePath)) {
@@ -231,20 +214,16 @@ class TicketController extends Controller
 
     public function destroy(Ticket $tiket)
     {
-        // Pastikan hanya pemilik tiket atau admin yang bisa menghapus
         abort_unless($tiket->user_id === Auth::id() || Auth::user()->isAdmin(), 403);
 
-        // Opsional: Hanya izinkan hapus jika tiket masih pending
         if ($tiket->status !== 'pending' && !Auth::user()->isAdmin()) {
             return back()->with('error', 'Tiket yang sudah diproses tidak dapat dihapus.');
         }
 
-        // Hapus file lokal jika ada
         if ($tiket->local_file_path && \Illuminate\Support\Facades\Storage::exists($tiket->local_file_path)) {
             \Illuminate\Support\Facades\Storage::delete($tiket->local_file_path);
         }
 
-        // Hapus riwayat & tiket dari database
         $tiket->histories()->delete();
         $tiket->delete();
 

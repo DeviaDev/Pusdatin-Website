@@ -24,7 +24,9 @@
     {{-- ===== HEADER MOBILE ===== --}}
     <div class="portal-mobile-header">
         <a href="{{ route('beranda') }}" class="logo">
-            <div class="kotak">BNPT</div>
+            <div class="kotak">
+                <img src="{{ asset('images/logo-bnpt.png') }}" alt="Logo BNPT">
+            </div>
             <div class="nama">PUSDATIN BNPT<small>Pusat Data dan Informasi</small></div>
         </a>
 
@@ -60,7 +62,9 @@
     {{-- ===== HEADER DESKTOP ===== --}}
     <header class="site portal-topnav">
         <a href="{{ route('beranda') }}" class="logo">
-            <div class="kotak">BNPT</div>
+            <div class="kotak">
+                <img src="{{ asset('images/logo-bnpt.png') }}" alt="Logo BNPT">
+            </div>
             <div class="nama">PUSDATIN BNPT<small>Pusat Data dan Informasi</small></div>
         </a>
 
@@ -132,7 +136,6 @@
 
     <script src="{{ asset('js/accessibility.js') }}"></script>
     <script>
-        // Semua dropdown notifikasi (desktop & mobile) pakai satu logika ini
         document.querySelectorAll('.drop').forEach(function (dropEl) {
             const btn = dropEl.querySelector('button');
             if (!btn) return;
