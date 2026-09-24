@@ -1,0 +1,123 @@
+/* ==========================================================================
+   HALAMAN DAFTAR INFORMASI & BERITA (informasi.css)
+   ========================================================================== */
+.informasi-container {
+    max-width: 1400px !important;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 4% 60px;
+    box-sizing: border-box;
+}
+
+.grid-informasi {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.informasi-item-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.kartu-informasi {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.kartu-informasi:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200, 16, 46, 0.3);
+    box-shadow: 0 8px 24px rgba(200, 16, 46, 0.08);
+}
+
+.informasi-thumb {
+    width: 100%;
+    height: 160px !important; 
+    background-color: #f1f5f9;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.informasi-badge {
+    align-self: flex-start;
+    margin-bottom: 8px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.informasi-body-teks {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-height: 110px; 
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.informasi-judul {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.35;
+    margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.informasi-ringkasan {
+    font-size: 0.85rem;
+    color: #555555;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.informasi-tanggal {
+    font-size: 0.78rem;
+    color: #888888;
+    display: block;
+    margin-top: auto;
+    padding-top: 6px;
+    flex-shrink: 0;
+}
+
+.informasi-pagination {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 992px) {
+    .grid-informasi {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .grid-informasi {
+        grid-template-columns: 1fr;
+    }
+}

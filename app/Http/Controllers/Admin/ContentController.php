@@ -61,7 +61,6 @@ class ContentController extends Controller
         'logo' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
     ]);
 
-    // Cari nomor Mitra berikutnya
     $nomor = 1;
 
     while (
@@ -71,7 +70,6 @@ class ContentController extends Controller
         $nomor++;
     }
 
-    // Field nama
     $namaField = $group->fields()->create([
         'key' => $group->slug . '.nama_' . $nomor,
         'label' => 'Nama Mitra ' . $nomor,
@@ -79,7 +77,6 @@ class ContentController extends Controller
         'urutan' => $group->fields()->max('urutan') + 1,
     ]);
 
-    // Field logo
     $logoField = $group->fields()->create([
         'key' => $group->slug . '.logo_' . $nomor,
         'label' => 'Logo Mitra ' . $nomor,
@@ -87,13 +84,11 @@ class ContentController extends Controller
         'urutan' => $group->fields()->max('urutan') + 1,
     ]);
 
-    // Simpan nama
     SiteContent::set(
         $namaField->key,
         $request->nama
     );
 
-    // Simpan logo
     $path = $request->file('logo')->store('konten', 'public');
 
     SiteContent::set(
@@ -115,32 +110,22 @@ class ContentController extends Controller
 
             $fieldName = "fields.{$field->id}";
 
-            // =========================
-            // FIELD GAMBAR
-            // =========================
             if ($field->type === 'image') {
 
                 if ($request->hasFile($fieldName)) {
 
                     $file = $request->file($fieldName);
 
-                    // Hapus gambar lama
                     $old = SiteContent::get($field->key);
 
                     if ($old && Storage::disk('public')->exists($old)) {
                         Storage::disk('public')->delete($old);
                     }
 
-                    // Simpan gambar baru
                     $path = $file->store('konten', 'public');
 
-                    // Simpan path ke database
                     SiteContent::set($field->key, $path);
                 }
-
-            // =========================
-            // FIELD TEKS / TEXTAREA
-            // =========================
             } else {
 
                 SiteContent::set(

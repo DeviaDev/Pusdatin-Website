@@ -15,7 +15,7 @@ class GoogleDriveService
         $this->folderId = config('services.google.drive_folder_id');
         $json = config('services.google.service_account_json');
         if (! $json || ! Storage::disk('local')->exists(str_replace('storage/app/', '', $json))) {
-            return; // fallback mode: simpan lokal
+            return; 
         }
         try {
             $client = new \Google\Client();
@@ -30,9 +30,6 @@ class GoogleDriveService
 
     public function isAvailable(): bool { return $this->service !== null; }
 
-    /**
-     * Upload file. Return array [file_id, web_link, local_path (fallback)].
-     */
     public function upload(UploadedFile $file, string $ticketKode): array
     {
         if ($this->isAvailable()) {
@@ -47,7 +44,6 @@ class GoogleDriveService
                 'uploadType' => 'multipart',
                 'fields' => 'id,webViewLink',
             ]);
-            // jadikan bisa dilihat siapa pun yang punya link
             $this->service->getClient()->setUseBatch(true);
             $batch = $this->service->createBatch();
             $permission = new \Google\Service\Drive\Permission(['type' => 'anyone', 'role' => 'viewer']);
@@ -58,7 +54,6 @@ class GoogleDriveService
             return ['file_id' => $created->id, 'link' => $created->webViewLink, 'local_path' => null];
         }
 
-        // Fallback: simpan lokal
         $path = $file->storeAs('tickets/' . $ticketKode, $file->getClientOriginalName(), 'local');
         return ['file_id' => null, 'link' => null, 'local_path' => $path];
     }

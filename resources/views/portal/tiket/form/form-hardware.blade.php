@@ -19,7 +19,6 @@
         @csrf
         <input type="hidden" name="subjek" value="Aduan Gangguan Perangkat Keras">
 
-        <!-- Baris 1 -->
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
             <div>
                 <label>Nama Lengkap <span class="req">*</span></label>
@@ -35,15 +34,25 @@
             </div>
         </div>
 
-        <!-- Baris 2 -->
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
             <div>
                 <label>Gedung <span class="req">*</span></label>
-                <select name="detail[gedung]" required>
-                    <option value="">Pilih Gedung</option>
-                    <option value="Gedung Utama">Gedung Utama</option>
-                    <option value="Gedung B">Gedung B</option>
-                    <option value="Gedung C">Gedung C</option>
+                <select name="detail[gedung]" required class="select-placeholder" onchange="this.classList.toggle('has-value', !!this.value)">
+                    <option value="" disabled selected hidden>Pilih Gedung</option>
+                    <option value="Gedung Utama" style="color: #333;">Biwara</option>
+                    <option value="Gedung B" style="color: #333;">Baladika</option>
+                    <option value="Gedung C" style="color: #333;">Pasopati</option>
+                    <option value="Gedung Utama" style="color: #333;">Nenggala</option>
+                    <option value="Gedung B" style="color: #333;">Rumga</option>
+                    <option value="Gedung C" style="color: #333;">Lapas</option>
+                    <option value="Gedung Utama" style="color: #333;">BLK</option>
+                    <option value="Gedung B" style="color: #333;">Asrama Lepas</option>
+                    <option value="Gedung C" style="color: #333;">Museum</option>
+                    <option value="Gedung Utama" style="color: #333;">Data Center</option>
+                    <option value="Gedung B" style="color: #333;">Wisman</option>
+                    <option value="Gedung C" style="color: #333;">Hayam Wuruk</option>
+                    <option value="Gedung B" style="color: #333;">Royal</option>
+                    <option value="Gedung C" style="color: #333;">Tomang</option>
                 </select>
             </div>
             <div>
@@ -56,7 +65,6 @@
             </div>
         </div>
 
-        <!-- Baris 3 -->
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
             <div>
                 <label>Nomor BMN <span class="req">*</span></label>
@@ -68,9 +76,12 @@
             </div>
         </div>
 
-        <!-- Kartu Khusus Detail Hardware -->
         <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px; margin-top:20px; background:#fafafa;">
-            <!-- Baris 1: Nama & Jabatan Pemilik -->
+            <div style="margin-bottom:16px;">
+                <label>Subjek Pengaduan / Permohonan <span class="req">*</span></label>
+                <input type="text" name="subjek" value="{{ old('subjek') }}" placeholder="Tuliskan Subjek Pengaduan / Permohonan" required style="width:100%; box-sizing:border-box;">
+            </div>
+
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
                 <div>
                     <label>Nama Pemilik Perangkat Keras <span class="req">*</span></label>
@@ -82,9 +93,7 @@
                 </div>
             </div>
 
-            <!-- Baris 2: Jenis Perangkat (Kiri) & Deskripsi Gangguan (Kanan) -->
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:16px; align-items:start;">
-                <!-- Kolom Kiri: Jenis Perangkat Keras -->
                 <div>
                     <label>Jenis Perangkat Keras <span class="req">*</span></label>
                     <div style="display:flex; flex-direction:column; gap:2px; margin-top:4px;">
@@ -92,17 +101,14 @@
                             <input type="radio" name="detail[jenis_perangkat]" value="Komputer / Laptop" style="width:auto; margin:0;" required>
                             Komputer / Laptop
                         </label>
-
                         <label class="opt-radio" style="font-weight:normal; display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-size:.9rem; margin:0; padding:2px 0;">
                             <input type="radio" name="detail[jenis_perangkat]" value="Scanner" style="width:auto; margin:0;">
                             Scanner
                         </label>
-
                         <label class="opt-radio" style="font-weight:normal; display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-size:.9rem; margin:0; padding:2px 0;">
                             <input type="radio" name="detail[jenis_perangkat]" value="Printer" style="width:auto; margin:0;">
                             Printer
                         </label>
-
                         <div style="display:inline-flex; align-items:center; gap:8px; margin-top:2px;">
                             <label class="opt-radio" style="font-weight:normal; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; cursor:pointer; font-size:.9rem; margin:0;">
                                 <input type="radio" name="detail[jenis_perangkat]" value="Lainnya" style="width:auto; margin:0;">
@@ -113,26 +119,16 @@
                     </div>
                 </div>
 
-                <!-- Kolom Kanan: Deskripsi Gangguan -->
                 <div>
                     <label>Deskripsi Gangguan Perangkat Keras <span class="req">*</span></label>
                     <textarea name="detail[deskripsi]" rows="4" placeholder="Jelaskan Gangguan yang terjadi" required style="width:100%; height:120px; resize:none; margin-top:4px;">{{ old('detail.deskripsi') }}</textarea>
                 </div>
             </div>
 
-            <!-- CSS Reset Khusus Radio Button di Form Ini -->
-            <style>
-                form.stack label.opt-radio {
-                    margin: 0 !important;
-                    display: inline-flex !important;
-                }
-            </style>
-
-            <!-- Baris 3: Upload Screenshot / Foto (Paling Bawah Memanjang 2 Kolom) -->
-            <div >
-                <label>Upload Screenshot / Foto (Opsional)</label>
+            <div style="margin-top:16px;">
+                <label>Upload Screenshot / Foto <span class="req">*</span></label>
                 <div style="display:flex; align-items:center; gap:12px; margin-top:6px;">
-                    <input type="file" name="lampiran" accept=".pdf,.png" style="width:auto; padding:6px; background:#fff; border:1px solid #ccc; border-radius:6px;">
+                    <input type="file" name="lampiran" accept=".pdf,.png" style="width:auto; padding:6px; background:#fff; border:1px solid #ccc; border-radius:6px;" required>
                     <small style="color:#888;">Maksimal 5 MB (Hanya PDF, PNG)</small>
                 </div>
             </div>

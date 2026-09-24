@@ -1,0 +1,186 @@
+/* ==========================================================================
+   SOP PUBLIC STYLES (sop-public.css)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Komponen Utama SOP
+   -------------------------------------------------------------------------- */
+
+/* State Default */
+.sop-item {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease; /* Transisi halus disamakan dengan kartu umum */
+}
+
+/* State Hover Disamakan dengan Kartu Umum (.kartu) */
+.sop-item:hover {
+    transform: translateY(-6px);
+    border-color: rgba(200, 16, 46, 0.2);
+    box-shadow: 0 12px 30px rgba(200, 16, 46, 0.08);
+}
+
+.sop-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: var(--merah);
+    color: #fff;
+    border: 1px solid var(--merah);
+    border-radius: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover Tombol Unduh SOP */
+.sop-download:hover {
+    background: #fff;
+    color: var(--merah);
+    border-color: var(--merah);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+.sop-download:hover span {
+    transform: translateY(2px);
+}
+
+.sop-download span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.sop-preview-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+/* Filter Standar (Background Abu-abu Muda, Border Abu-abu, Teks Gelap) */
+.sop-filter-btn {
+    background: #f1f3f5 !important;
+    color: #222222 !important;
+    border: 1px solid #e0e0e0 !important;
+    padding: 9px 22px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover (Background Putih, Border Merah, Teks Merah) */
+.sop-filter-btn:hover {
+    background: #ffffff !important;
+    color: var(--merah) !important;
+    border-color: var(--merah) !important;
+}
+
+/* Filter yang Sedang Aktif (Background Merah, Border Merah, Teks Putih) */
+.sop-filter-btn.aktif {
+    background: var(--merah) !important;
+    color: #ffffff !important;
+    border-color: var(--merah) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Komponen Pendukung & Umum (Dipakai oleh Halaman SOP)
+   -------------------------------------------------------------------------- */
+
+/* Section Konten */
+section.konten {
+    padding: 56px 5%;
+}
+
+section.konten h2 {
+    color: var(--merah);
+    margin-bottom: 24px;
+}
+
+/* Tombol Merah Umum (Digunakan pada Tombol Unduh di Preview Card) */
+.btn-merah {
+    background: var(--merah);
+    color: #fff;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.95rem;
+}
+
+.btn-merah:hover {
+    background: var(--merah-gelap);
+}
+
+/* Tombol Outline Umum (Digunakan pada Elemen Filter) */
+.btn-outline {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 9px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+    background: #e5e7eb;
+    color: #1a1a1a;
+    border-color: #e5e7eb;
+}
+
+.kartu {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.btn-unduh-icon-line {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--merah); 
+    text-decoration: none;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+}
+
+.btn-unduh-icon-line:hover {
+    color: var(--merah-gelap);
+    transform: scale(1.25); 
+}
+
+@media (max-width: 900px) {
+    .sop-wrap { 
+        grid-template-columns: 1fr !important; 
+        height: auto !important; 
+    }
+    #sop-list, 
+    .sop-wrap .kartu { 
+        max-height: 70vh; 
+    }
+}

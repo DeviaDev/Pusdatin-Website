@@ -5,7 +5,6 @@
 <div class="panel">
     <a href="{{ route('portal.tiket.create') }}" style="color:var(--merah); text-decoration:none; font-size:.9rem; display:inline-block; margin-bottom:16px;">← Kembali Pilih Kategori</a>
 
-    <!-- Header Form dengan Ikon Software -->
     <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
         <div class="ikon-wrap" style="width:56px; height:56px; background:#fdf2f4; color:var(--merah); border-radius:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -20,7 +19,6 @@
         @csrf
         <input type="hidden" name="subjek" value="Aduan Gangguan Perangkat Lunak">
 
-        <!-- Baris 1: Informasi Pelapor -->
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
             <div>
                 <label>Nama Lengkap <span class="req">*</span></label>
@@ -36,15 +34,25 @@
             </div>
         </div>
 
-        <!-- Baris 2: Lokasi & Kontak -->
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
             <div>
                 <label>Gedung <span class="req">*</span></label>
-                <select name="detail[gedung]" required>
-                    <option value="">Pilih Gedung</option>
-                    <option value="Gedung Utama">Gedung Utama</option>
-                    <option value="Gedung B">Gedung B</option>
-                    <option value="Gedung C">Gedung C</option>
+                <select name="detail[gedung]" required class="select-placeholder" onchange="this.classList.toggle('has-value', !!this.value)">
+                    <option value="" disabled selected hidden>Pilih Gedung</option>
+                    <option value="Gedung Utama" style="color: #333;">Biwara</option>
+                    <option value="Gedung B" style="color: #333;">Baladika</option>
+                    <option value="Gedung C" style="color: #333;">Pasopati</option>
+                    <option value="Gedung Utama" style="color: #333;">Nenggala</option>
+                    <option value="Gedung B" style="color: #333;">Rumga</option>
+                    <option value="Gedung C" style="color: #333;">Lapas</option>
+                    <option value="Gedung Utama" style="color: #333;">BLK</option>
+                    <option value="Gedung B" style="color: #333;">Asrama Lepas</option>
+                    <option value="Gedung C" style="color: #333;">Museum</option>
+                    <option value="Gedung Utama" style="color: #333;">Data Center</option>
+                    <option value="Gedung B" style="color: #333;">Wisman</option>
+                    <option value="Gedung C" style="color: #333;">Hayam Wuruk</option>
+                    <option value="Gedung B" style="color: #333;">Royal</option>
+                    <option value="Gedung C" style="color: #333;">Tomang</option>
                 </select>
             </div>
             <div>
@@ -57,7 +65,6 @@
             </div>
         </div>
 
-        <!-- Baris 3: BMN & Nodin -->
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
             <div>
                 <label>Nomor BMN <span class="req">*</span></label>
@@ -69,9 +76,12 @@
             </div>
         </div>
 
-        <!-- Kartu Khusus Detail Software -->
         <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px; margin-top:20px; background:#fafafa;">
-            <!-- Baris 1: Nama & Jabatan Pemilik Perangkat Lunak -->
+            <div style="margin-bottom:16px;">
+                <label>Subjek Pengaduan / Permohonan <span class="req">*</span></label>
+                <input type="text" name="subjek" value="{{ old('subjek') }}" placeholder="Tuliskan Subjek Pengaduan / Permohonan" required style="width:100%; box-sizing:border-box;">
+            </div>
+
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
                 <div>
                     <label>Nama Pemilik Perangkat Lunak <span class="req">*</span></label>
@@ -83,17 +93,15 @@
                 </div>
             </div>
 
-            <!-- Baris 2: Deskripsi Gangguan Perangkat Lunak (Memanjang) -->
             <div style="margin-top:16px;">
                 <label>Deskripsi Gangguan Perangkat Lunak <span class="req">*</span></label>
                 <textarea name="detail[deskripsi]" rows="4" placeholder="Jelaskan Gangguan yang terjadi" required style="width:100%; height:100px; resize:vertical; margin-top:4px;">{{ old('detail.deskripsi') }}</textarea>
             </div>
 
-            <!-- Baris 3: Upload Screenshot / Foto -->
-            <div >
-                <label>Upload Screenshot / Foto (Opsional)</label>
+            <div style="margin-top:16px;">
+                <label>Upload Screenshot / Foto <span class="req">*</span></label>
                 <div style="display:flex; align-items:center; gap:12px; margin-top:6px;">
-                    <input type="file" name="lampiran" accept=".pdf,.png" style="width:auto; padding:6px; background:#fff; border:1px solid #ccc; border-radius:6px;">
+                    <input type="file" name="lampiran" accept=".pdf,.png" style="width:auto; padding:6px; background:#fff; border:1px solid #ccc; border-radius:6px;" required>
                     <small style="color:#888;">Maksimal 5 MB (Hanya PDF, PNG)</small>
                 </div>
             </div>

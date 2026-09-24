@@ -8,12 +8,10 @@
         <p style="color:#666; font-size:.9rem; margin-bottom:6px;">Pelaporan Aduan dan Permintaan Layanan Teknologi Informasi BNPT</p>
         <p style="font-size:.85rem; color:#888;">Pilih jenis layanan atau perangkat TI yang sesuai agar penanganan oleh Subbagian Teknologi Informasi dapat dilakukan dengan tepat dan efektif.</p>
 
-        <!-- Grid Layanan bergaya Beranda -->
         <div class="grid-layanan" style="margin-top:24px; justify-content: flex-start;">
             @foreach (App\Models\Ticket::KATEGORI as $key => $label)
                 <a href="{{ route('portal.tiket.create', $key) }}" style="text-decoration: none; color: inherit; flex: 0 0 calc(33.333% - 16px); min-width: 260px;">
                     <div class="kartu-layanan" style="height: 100%;">
-                        <!-- Ikon SVG sesuai Kategori -->
                         <div class="ikon-wrap">
                             @if ($key === 'hardware')
                                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -30,10 +28,8 @@
                             @endif
                         </div>
 
-                        <!-- Judul Layanan -->
                         <h3>{{ $label }}</h3>
 
-                        <!-- Deskripsi Layanan -->
                         <p>{{ [
                             'hardware' => 'Meliputi aduan terkait komputer, laptop, printer, scanner, serta perangkat pendukung operasional lainnya.',
                             'software' => 'Meliputi aduan terkait sistem operasi, aplikasi operasional, serta aplikasi-aplikasi pendukung lainnya.',

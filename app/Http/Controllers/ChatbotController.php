@@ -11,7 +11,6 @@ class ChatbotController extends Controller
         $request->validate(['pesan' => 'required|string|max:500']);
         $pesan = strtolower($request->input('pesan'));
 
-        // Skor kecocokan berbasis keyword
         $best = null; $bestScore = 0;
         foreach (ChatbotFAQ::all() as $faq) {
             $score = 0;

@@ -16,7 +16,7 @@ class GoogleSheetService
         $this->sheetId = config('services.google.sheet_id');
         $json = config('services.google.service_account_json');
         if (! $this->sheetId || ! $json || ! Storage::disk('local')->exists(str_replace('storage/app/', '', $json))) {
-            return; // fallback mode
+            return; 
         }
         try {
             $client = new \Google\Client();

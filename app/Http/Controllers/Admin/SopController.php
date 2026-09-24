@@ -10,7 +10,7 @@ class SopController extends Controller
 {
     public function index()
     {
-        $sop = SopDocument::orderBy('kode')->paginate(15);
+        $sop = SopDocument::latest('published_at')->paginate(15);
         return view('admin.sop.index', compact('sop'));
     }
 
@@ -27,6 +27,7 @@ class SopController extends Controller
             $data['file_name'] = $request->file('file')->getClientOriginalName();
         }
         $data['is_active'] = $request->boolean('is_active');
+        
         SopDocument::create($data);
         return redirect()->route('admin.sop.index')->with('success', 'Dokumen SOP ditambahkan.');
     }
@@ -45,6 +46,7 @@ class SopController extends Controller
             $data['file_name'] = $request->file('file')->getClientOriginalName();
         }
         $data['is_active'] = $request->boolean('is_active');
+
         $sop->update($data);
         return redirect()->route('admin.sop.index')->with('success', 'Dokumen SOP diperbarui.');
     }
@@ -65,11 +67,16 @@ class SopController extends Controller
     private function validateData(Request $request, ?int $ignoreId = null): array
     {
         return $request->validate([
-            'kode' => 'required|string|max:20|unique:sop_documents,kode' . ($ignoreId ? ',' . $ignoreId : ''),
+            'kode' => 'required|string|max:50|unique:sop_documents,kode' . ($ignoreId ? ',' . $ignoreId : ''),
             'nama' => 'required|string|max:200',
             'klasifikasi' => 'required|string|max:100',
+            'published_at' => 'required|date',
             'deskripsi' => 'nullable|string|max:5000',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,png,jpg,jpeg|max:10240',
+            'file' => ($ignoreId ? 'nullable' : 'required') . '|file|mimes:pdf,png,jpg,jpeg|max:10240',
+        ], [
+            'file.required' => 'File dokumen wajib diunggah.',
+            'file.mimes' => 'Format file harus berupa PDF, PNG, JPG, atau JPEG.',
+            'file.max' => 'Ukuran file maksimal 10MB.'
         ]);
     }
 }

@@ -31,7 +31,6 @@
                 @endphp
 
                 <table style="width:100%; font-size:.9rem; border-collapse:collapse;">
-                    <!-- 1. Iterasi field teks biasa -->
                     @foreach ($detail as $key => $val)
                         @continue(is_array($val) && isset($val['drive_link']))
                         <tr>
@@ -48,7 +47,6 @@
                         </tr>
                     @endforeach
 
-                    <!-- 2. Iterasi file yang diupload (Dengan Nama File Asli) -->
                     @if (!empty($uploadedFiles))
                         @foreach ($uploadedFiles as $labelTitle => $fileData)
                             @php
@@ -77,7 +75,6 @@
                             </tr>
                         @endforeach
                     @elseif ($tiket->local_file_path || $tiket->drive_file_link)
-                        <!-- Fallback tiket lama -->
                         <tr>
                             <td style="padding:8px 0; color:#777; width:220px; border-bottom:1px solid #f9f9f9;">
                                 File Lampiran
@@ -108,7 +105,6 @@
             </div>
         </div>
 
-        <!-- Kolom Kanan: Form Ubah Status -->
         <div class="panel" style="align-self:start;">
             <h3>Ubah Status</h3>
             <p style="font-size:.85rem; color:#888; margin-bottom:12px;">Perubahan status tersinkron ke Google Sheets dan pemilik tiket menerima notifikasi.</p>

@@ -1,6 +1,8 @@
 @extends('layouts.public')
 @section('title', 'Kontak')
-
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/kontak-public.css') }}">
+@endpush
 @section('content')
 <div class="header-profil">
     <div class="header-profil-body">
@@ -26,46 +28,52 @@
         {{-- KOLOM KIRI: INFORMASI KONTAK --}}
         <div class="kolom-teks-profil">
 
-            <span class="sub-judul-merah">HUBUNGI KAMI</span>
-            <h2>Informasi Kontak</h2>
+                    <span class="sub-judul-merah">HUBUNGI KAMI</span>
+                    <h2>Informasi Kontak</h2>
 
-            <div class="list-item-kontak">
-                <div class="box-icon-kontak">📍</div>
-                <div>
-                    <small>KANTOR PUSAT (JAKARTA)</small>
-                    <p>Jl. IR. H. Juanda No. 1, Jakarta Pusat 10120, DKI Jakarta</p>
-                </div>
+                    <div class="list-item-kontak">
+            <div class="box-icon-kontak">
+                <i class="bi bi-geo-alt"></i>
             </div>
-
-            <div class="list-item-kontak">
-                <div class="box-icon-kontak">🏢</div>
-                <div>
-                    <small>KANTOR OPERASIONAL PUSDATIN (BOGOR)</small>
-                    <p>Kompleks IPSC Sentul, Kec. Citeureup, Kab. Bogor 16810</p>
-                </div>
+            <div>
+                <small>KANTOR PUSAT (JAKARTA)</small>
+                <p>Jl. IR. H. Juanda No. 1, Jakarta Pusat 10120, DKI Jakarta</p>
             </div>
+        </div>
 
-            <div class="list-item-kontak">
-                <div class="box-icon-kontak">📞</div>
-                <div>
-                    <small>TELEPON</small>
-                    <p>(021) 345-6789</p>
-                </div>
+        <div class="list-item-kontak">
+            <div class="box-icon-kontak">
+                <i class="bi bi-building"></i>
             </div>
-
-            <div class="list-item-kontak">
-                <div class="box-icon-kontak">✉️</div>
-                <div>
-                    <small>EMAIL</small>
-                    <p>pusdatin@bnpt.go.id</p>
-                </div>
+            <div>
+                <small>KANTOR OPERASIONAL PUSDATIN (BOGOR)</small>
+                <p>Kompleks IPSC Sentul, Kec. Citeureup, Kab. Bogor 16810</p>
             </div>
+        </div>
 
+        <div class="list-item-kontak">
+            <div class="box-icon-kontak">
+                <i class="bi bi-telephone"></i>
+            </div>
+            <div>
+                <small>TELEPON</small>
+                <p>(021) 345-6789</p>
+            </div>
+        </div>
 
-       
+        <div class="list-item-kontak">
+            <div class="box-icon-kontak">
+                <i class="bi bi-envelope"></i>
+            </div>
+            <div>
+                <small>EMAIL</small>
+                <p>pusdatin@bnpt.go.id</p>
+            </div>
+        </div>
+
             <div class="kontak-map">
                 <iframe
-                    src="https://www.google.com/maps?q=Jl.%20Ir.%20H.%20Juanda%20No.%201,%20Jakarta%20Pusat&output=embed"
+                    src="https://www.google.com/maps?q=BNPT+Sentul+Bogor&output=embed"
                     width="100%"
                     height="220"
                     style="border:0;"

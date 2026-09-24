@@ -46,7 +46,6 @@ Route::middleware(['auth'])->prefix('portal')->name('portal.')->group(function (
     Route::post('/tiket/buat/{kategori}', [PortalTicketController::class, 'store'])->name('tiket.store');
     Route::get('/tiket/{tiket}/download-local', [PortalTicketController::class, 'downloadLocal'])->name('tiket.download-local');
 
-    // Route untuk Hapus Tiket
     Route::delete('/tiket/{tiket}', [PortalTicketController::class, 'destroy'])->name('tiket.destroy');
 
     Route::get('/tiket/{tiket}', [PortalTicketController::class, 'show'])->name('tiket.show');
@@ -56,16 +55,12 @@ Route::middleware(['auth'])->prefix('portal')->name('portal.')->group(function (
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // Tiket pengaduan
     Route::get('/tiket', [AdminTicketController::class, 'index'])->name('tiket.index');
     Route::get('/tiket/{tiket}', [AdminTicketController::class, 'show'])->name('tiket.show');
     Route::post('/tiket/{tiket}/status', [AdminTicketController::class, 'updateStatus'])->name('tiket.status');
 
-    // Informasi / pengumuman
-    Route::resource('pengumuman', AnnouncementController::class)->except(['show']);
+    Route::resource('pengumuman', AnnouncementController::class);
 
-    // Konten website (beranda & profil) — sistem section dinamis
-    // Konten website (beranda, profil, mitra, dll)
 Route::prefix('konten')->name('konten.')->group(function () {
 
     Route::get('/', [ContentController::class, 'index'])
@@ -80,11 +75,9 @@ Route::prefix('konten')->name('konten.')->group(function () {
     Route::put('/{group:slug}', [ContentController::class, 'update'])
         ->name('update');
 
-    // Tambah field biasa
     Route::post('/{group:slug}/field', [ContentController::class, 'storeField'])
         ->name('field.store');
 
-    // Tambah Mitra sekaligus nama + logo
     Route::post('/{group:slug}/mitra', [ContentController::class, 'storeMitra'])
         ->name('mitra.store');
 
@@ -92,9 +85,6 @@ Route::prefix('konten')->name('konten.')->group(function () {
         ->name('field.destroy');
 });
 
-    // Dokumen SOP
     Route::resource('sop', SopController::class)->except(['show']);
     Route::get('/sop/{sop}/unduh', [SopController::class, 'download'])->name('sop.unduh');
-
-    
 });
